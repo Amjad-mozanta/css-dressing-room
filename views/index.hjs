@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<title>CSS Dressing Room</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  
+		<link rel="stylesheet" href="/stylesheets/style.css"/>
+
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.0/backbone.localStorage-min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/hogan.js/2.0.0/hogan.js"></script>
+
+		<script src="/javascripts/client.js"></script>
+		
+		<script id="site-template" type="text/template-hogan">{{{ siteTemplate }}}</script>
+	</head>
+	<body>
+		<h1>CSS Dressing Room</h1>
+		<p>Want to quickly try out some typography and color combinations? Use the buttons and stuff below to mix and match.</p>
+		
+		<div id="site-controls">
+
+			<div id="background">
+				<h3>Background</h3>
+				<select class="color" id="background-color">
+					{{# colors }}
+						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
+					{{/ colors }}
+				</select>
+			</div>
+
+			<div id="headline">
+				<h3>Headline</h3>
+				<select class="color" id="headline-color">
+					{{# colors }}
+						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
+					{{/ colors }}
+				</select>
+				<select id="headline-font">
+					{{# fonts }}
+						<option value="{{ . }}">{{ . }}</option>
+					{{/ fonts }}
+				</select>
+			</div>
+
+			<div id="lead">
+				<h3>Lead</h3>
+				<select class="color" id="lead-color">
+					{{# colors }}
+						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
+					{{/ colors }}
+				</select>
+				<input type="checkbox" id="lead-bold"/><label for="lead-bold">bold</label>
+			</div>
+
+			<div id="body">
+				<h3>Body</h3>
+				<select class="color" id="body-color">
+					{{# colors }}
+						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
+					{{/ colors }}
+				</select>
+				<select id="body-font">
+					{{# fonts }}
+						<option value="{{ . }}">{{ . }}</option>
+					{{/ fonts }}
+				</select>
+			</div>
+
+
+
+<!--
+			<div id="blockquote">
+				<h3>Block Quote</h3>
+				<select id="blockquote-font">
+					{{# fonts }}
+						<option value="{{ . }}">{{ . }}</option>
+					{{/ fonts }}
+				</select>
+				<select class="color" id="blockquote-color">
+					{{# colors }}
+						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
+					{{/ colors }}
+				</select>
+			</div>
+-->
+			<button id="add-site">New</button>
+		</div>
+		
+		<ul id="sites"></ul>
+
+
+	</body>
+</html>

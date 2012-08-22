@@ -1,12 +1,4 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
 
-# Compiled Dynamic libraries
-*.so
+# CSS is compiled from LESS
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+public/stylesheets/*.css
