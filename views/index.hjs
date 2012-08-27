@@ -21,86 +21,98 @@
 		<p>Want to quickly try out some typography and color combinations? Use the buttons and stuff below to mix and match.</p>
 		
 		<div id="site-controls">
+			<div id="style-settings">
 
-			<div id="background">
-				<h3>Background</h3>
-				<select class="color" id="background-color">
-					{{# colors }}
-						<option value="{{ . }}">{{ . }}</option>
-					{{/ colors }}
-				</select>
-			</div>
+				<div class="background">
+					<h3>Background</h3>
+					<select class="background-color">
+						{{# colors }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ colors }}
+					</select>
+				</div>
+	
+				<div class="h2">
+					<h3>Headline</h3>
+					<select class="color">
+						{{# colors }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ colors }}
+					</select>
+					<select class="font-size">
+						{{# sizes }}
+							<option value="{{ . }}" >{{ . }}</option>
+						{{/ sizes }}
+					</select>
+					<select class="font-family">
+						{{# fonts }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ fonts }}
+					</select>
+					<select class="font-weight">
+						<option value="inherit">inherit</option>
+						<option value="normal">normal</option>
+						<option value="bold">bold</option>
+					</select>
+				</div>
+	
+				<div class="lead">
+					<h3>Lead</h3>
+					<select class="color">
+						{{# colors }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ colors }}
+					</select>
+					<select class="font-size">
+						{{# sizes }}
+							<option value="{{ . }}" >{{ . }}</option>
+						{{/ sizes }}
+					</select>
+					<select class="font-weight">
+						<option value="inherit">inherit</option>
+						<option value="normal">normal</option>
+						<option value="bold">bold</option>
+					</select>
+				</div>
+	
+				<div class="p">
+					<h3>Body</h3>
+					<select class="color">
+						{{# colors }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ colors }}
+					</select>
+					<select class="font-size">
+						{{# sizes }}
+							<option value="{{ . }}" >{{ . }}</option>
+						{{/ sizes }}
+					</select>
+					<select class="font-family">
+						{{# fonts }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ fonts }}
+					</select>
+				</div>
+	
+				<div class="blockquote">
+					<h3>Blockquote</h3>
+					<select class="color">
+						{{# colors }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ colors }}
+					</select>
+					<select class="font-size">
+						{{# sizes }}
+							<option value="{{ . }}" >{{ . }}</option>
+						{{/ sizes }}
+					</select>
+					<select class="font-family">
+						{{# fonts }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ fonts }}
+					</select>
+				</div>
 
-			<div id="headline">
-				<h3>Headline</h3>
-				<select class="color" id="headline-color">
-					{{# colors }}
-						<option value="{{ . }}">{{ . }}</option>
-					{{/ colors }}
-				</select>
-				<select class="size" id="headline-size">
-					{{# sizes }}
-						<option value="{{ . }}" >{{ . }}</option>
-					{{/ sizes }}
-				</select>
-				<select id="headline-font">
-					{{# fonts }}
-						<option value="{{ . }}">{{ . }}</option>
-					{{/ fonts }}
-				</select>
-			</div>
-
-			<div id="lead">
-				<h3>Lead</h3>
-				<select class="color" id="lead-color">
-					{{# colors }}
-						<option value="{{ . }}">{{ . }}</option>
-					{{/ colors }}
-				</select>
-				<select class="size" id="lead-size">
-					{{# sizes }}
-						<option value="{{ . }}" >{{ . }}</option>
-					{{/ sizes }}
-				</select>
-				<input type="checkbox" id="lead-bold"/><label for="lead-bold">bold</label>
-			</div>
-
-			<div id="body">
-				<h3>Body</h3>
-				<select class="color" id="body-color">
-					{{# colors }}
-						<option value="{{ . }}">{{ . }}</option>
-					{{/ colors }}
-				</select>
-				<select class="size" id="body-size">
-					{{# sizes }}
-						<option value="{{ . }}" >{{ . }}</option>
-					{{/ sizes }}
-				</select>
-				<select id="body-font">
-					{{# fonts }}
-						<option value="{{ . }}">{{ . }}</option>
-					{{/ fonts }}
-				</select>
-			</div>
-
-			<div id="blockquote">
-				<h3>Blockquote</h3>
-				<select class="color" id="blockquote-color">
-					{{# colors }}
-						<option value="{{ . }}">{{ . }}</option>
-					{{/ colors }}
-				</select>
-				<select class="size" id="blockquote-size">
-					{{# sizes }}
-						<option value="{{ . }}" >{{ . }}</option>
-					{{/ sizes }}
-				</select>
-				<select id="blockquote-font">
-					{{# fonts }}
-						<option value="{{ . }}">{{ . }}</option>
-					{{/ fonts }}
-				</select>
 			</div>
 
 			<button id="add-site">New</button>

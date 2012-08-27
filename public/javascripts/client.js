@@ -15,19 +15,7 @@ var EditSiteView = Backbone.View.extend({
 
 	events: {
 		"click #add-site": "addSite",
-		"change #headline-font": "changeHeadlineFont",
-		"change #headline-color": "changeHeadlineColor",
-		"change #headline-size": "changeHeadlineSize",
-		"change #body-font": "changeBodyFont",
-		"change #body-color": "changeBodyColor",
-		"change #body-size": "changeBodySize",
-		"change #blockquote-font": "changeBlockquoteFont",
-		"change #blockquote-color": "changeBlockquoteColor",
-		"change #blockquote-size": "changeBlockquoteSize",
-		"change #lead-color": "changeLeadColor",
-		"change #lead-size": "changeLeadSize",
-		"change #lead-bold": "changeLeadBold",
-		"change #background-color": "changeBackgroundColor"
+		"change #style-settings": "changeStyleSettings",
 	},
 
 	initialize: function() {
@@ -49,28 +37,29 @@ var EditSiteView = Backbone.View.extend({
 				body2: "Vivamus venenatis interdum lacus, sed imperdiet lectus congue nec. Praesent et dolor sit amet eros tempus consectetur sed a elit. Integer dictum, odio eget imperdiet porta, quam libero ornare erat, a varius mi quam eget libero. Vestibulum eget laoreet urna. Integer auctor eros et augue gravida tristique. Pellentesque eget eleifend enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed luctus tristique lorem, ut commodo nulla lacinia eget."
 			},
 			style: {
-				headline: {
-					font: "Comic Sans MS",
+				h2: {
+					"font-family": "Comic Sans MS",
 					color: "#5cf",
-					size: "24px"
+					"font-size": "24px",
+					"font-weight": "normal"
 				},
-				body: {
-					font: "Verdana",
+				p: {
+					"font-family": "Verdana",
 					color: "black",
-					size: "16px"
+					"font-size": "16px"
 				},
 				blockquote: {
-					font: "Verdana",
+					"font-family": "Verdana",
 					color: "#f4a",
-					size: "18px"
+					"font-size": "18px"
 				},
 				lead: {
 					color: "black",
-					bold: true,
-					size: "20px"
+					"font-weight": "bold",
+					"font-size": "20px"
 				},
 				background: {
-					color: "#eee"
+					"background-color": "#eee"
 				}
 			}
 		});
@@ -78,144 +67,39 @@ var EditSiteView = Backbone.View.extend({
 		this.app.setSelectedSite(site);
 	},
 	
-	changeHeadlineFont: function(e) {
-		
+	changeStyleSettings: function(e) {
+
 		// *Deep copy* the old style. Just getting it is not enough, since Backbone will compare it to itself. (The object passed around is the same as the one stored originally.)
 		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
 
-		style.headline.font = $(e.target).find("option:selected").val();
+		style[e.target.parentElement.className][e.target.className] = $(e.target).find("option:selected").val();
 
 		this.app.getSelectedSite().set({style: style});
 	},
-	
-	changeHeadlineColor: function(e) {
 
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.headline.color = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeHeadlineSize: function(e) {
-
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.headline.size = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeBodyFont: function(e) {
-		
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.body.font = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeBodyColor: function(e) {
-
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.body.color = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeBodySize: function(e) {
-
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.body.size = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeBlockquoteFont: function(e) {
-		
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.blockquote.font = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeBlockquoteColor: function(e) {
-
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.blockquote.color = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeBlockquoteSize: function(e) {
-
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.blockquote.size = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeLeadColor: function(e) {
-
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.lead.color = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeLeadSize: function(e) {
-
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.lead.size = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeLeadBold: function(e) {
-
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.lead.bold = !!$(e.target).attr("checked");
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
-	changeBackgroundColor: function(e) {
-
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
-		style.background.color = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-	},
-	
+	// Set the styling controls to match the model.
 	setSite: function(model) {
+				
+		// The relevant data.
 		var style = model.toJSON().style;
 		
-		this.$el.find("#headline-font").val(style.headline.font);
-		this.$el.find("#headline-color").val(style.headline.color);
-		this.$el.find("#headline-size").val(style.headline.size);
+		// Map over all the element types.
+		var settingsRootElement = this.el;
+		_.map(style, function(styling, elementType){
+			
+			// The controls for each element type are grouped in a div with the class = it's key in the style object.
+			var settingsElement = settingsRootElement.getElementsByClassName(elementType)[0];
+			
+			// Map over all the style settings for that element type.
+			_.map(styling, function(value, key){
 
-		this.$el.find("#body-font").val(style.body.font);
-		this.$el.find("#body-color").val(style.body.color);
-		this.$el.find("#body-size").val(style.body.size);
-
-		this.$el.find("#blockquote-font").val(style.blockquote.font);
-		this.$el.find("#blockquote-color").val(style.blockquote.color);
-		this.$el.find("#blockquote-size").val(style.blockquote.size);
-
-		this.$el.find("#lead-color").val(style.lead.color);
-		this.$el.find("#lead-size").val(style.lead.size);
-		this.$el.find("#lead-bold").attr("checked", style.lead.bold);
-
-		this.$el.find("#background-color").val(style.background.color);
+				// The controls for each style setting has the class = it's key in the styling object.
+				var selectionElement = settingsElement.getElementsByClassName(key)[0];
+				
+				// Simply set the control to whatever is in the styling.
+				selectionElement.value = value;
+			});
+		});
 	}
 });
 
@@ -256,37 +140,26 @@ var SiteView = Backbone.View.extend({
 	},
 
 	updateSite: function(site) {
-		
-		var data = site.toJSON();
 
-		this.$el.find("h2").css({
-			color: data.style.headline.color,
-			"font-size": data.style.headline.size,
-			"font-family": data.style.headline.font
-		});
+		var style = site.toJSON().style;
 
-		this.$el.find("p").css({
-			color: data.style.body.color,
-			"font-size": data.style.body.size,
-			"font-family": data.style.body.font
-		});
+		var specialElementNames = [
+			'background',
+			'lead'
+		];
 
-		this.$el.find("p.lead").css({
-			color: data.style.lead.color,
-			"font-size": data.style.lead.size,
-			"font-weight": data.style.lead.bold ? "bold" : "normal"
-		});
+		// Map over all "normal" style rules, the ones with a 1:1 mapping to a tag name.
+		var normalStyleRules = _.pick(style, _.difference(_.keys(style), specialElementNames));
+		_.map(normalStyleRules, function(value, tagName) {
 
-		this.$el.find("blockquote").css({
-			color: data.style.blockquote.color,
-			"font-size": data.style.blockquote.size,
-			"font-family": data.style.blockquote.font
-		});
+			// Simply set the style on the elements of that name.
+			this.$el.find(tagName).css(value);
+			
+		}, this);
 
-
-		this.$el.css({
-			"background-color": data.style.background.color
-		});
+		// These are a bit special:
+		this.$el.find("p.lead").css(style.lead)	// The .lead should override the p-style.
+		this.$el.css(style.background);			// The background color should be applied to the site container as a whole.
 	},
 
 	events: {
