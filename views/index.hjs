@@ -26,7 +26,7 @@
 				<h3>Background</h3>
 				<select class="color" id="background-color">
 					{{# colors }}
-						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
+						<option value="{{ . }}">{{ . }}</option>
 					{{/ colors }}
 				</select>
 			</div>
@@ -35,8 +35,13 @@
 				<h3>Headline</h3>
 				<select class="color" id="headline-color">
 					{{# colors }}
-						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
+						<option value="{{ . }}">{{ . }}</option>
 					{{/ colors }}
+				</select>
+				<select class="size" id="headline-size">
+					{{# sizes }}
+						<option value="{{ . }}" >{{ . }}</option>
+					{{/ sizes }}
 				</select>
 				<select id="headline-font">
 					{{# fonts }}
@@ -49,8 +54,13 @@
 				<h3>Lead</h3>
 				<select class="color" id="lead-color">
 					{{# colors }}
-						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
+						<option value="{{ . }}">{{ . }}</option>
 					{{/ colors }}
+				</select>
+				<select class="size" id="lead-size">
+					{{# sizes }}
+						<option value="{{ . }}" >{{ . }}</option>
+					{{/ sizes }}
 				</select>
 				<input type="checkbox" id="lead-bold"/><label for="lead-bold">bold</label>
 			</div>
@@ -59,8 +69,13 @@
 				<h3>Body</h3>
 				<select class="color" id="body-color">
 					{{# colors }}
-						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
+						<option value="{{ . }}">{{ . }}</option>
 					{{/ colors }}
+				</select>
+				<select class="size" id="body-size">
+					{{# sizes }}
+						<option value="{{ . }}" >{{ . }}</option>
+					{{/ sizes }}
 				</select>
 				<select id="body-font">
 					{{# fonts }}
@@ -69,23 +84,25 @@
 				</select>
 			</div>
 
-
-
-<!--
 			<div id="blockquote">
-				<h3>Block Quote</h3>
+				<h3>Blockquote</h3>
+				<select class="color" id="blockquote-color">
+					{{# colors }}
+						<option value="{{ . }}">{{ . }}</option>
+					{{/ colors }}
+				</select>
+				<select class="size" id="blockquote-size">
+					{{# sizes }}
+						<option value="{{ . }}" >{{ . }}</option>
+					{{/ sizes }}
+				</select>
 				<select id="blockquote-font">
 					{{# fonts }}
 						<option value="{{ . }}">{{ . }}</option>
 					{{/ fonts }}
 				</select>
-				<select class="color" id="blockquote-color">
-					{{# colors }}
-						<option value="{{ . }}" style="background-color: {{ . }};">{{ . }}</option>
-					{{/ colors }}
-				</select>
 			</div>
--->
+
 			<button id="add-site">New</button>
 		</div>
 		

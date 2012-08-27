@@ -42,6 +42,18 @@ exports.index = function(req, res){
 				"#fb0",
 				"#ae0",
 				"#5cf"
+			],
+			sizes: [
+				"6px",
+				"8px",
+				"10px",
+				"12px",
+				"16px",
+				"18px",
+				"20px",
+				"24px",
+				"30px",
+				"36px"
 			]
 		});
 	});

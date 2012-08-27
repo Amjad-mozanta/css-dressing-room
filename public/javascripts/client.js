@@ -17,9 +17,15 @@ var EditSiteView = Backbone.View.extend({
 		"click #add-site": "addSite",
 		"change #headline-font": "changeHeadlineFont",
 		"change #headline-color": "changeHeadlineColor",
+		"change #headline-size": "changeHeadlineSize",
 		"change #body-font": "changeBodyFont",
 		"change #body-color": "changeBodyColor",
+		"change #body-size": "changeBodySize",
+		"change #blockquote-font": "changeBlockquoteFont",
+		"change #blockquote-color": "changeBlockquoteColor",
+		"change #blockquote-size": "changeBlockquoteSize",
 		"change #lead-color": "changeLeadColor",
+		"change #lead-size": "changeLeadSize",
 		"change #lead-bold": "changeLeadBold",
 		"change #background-color": "changeBackgroundColor"
 	},
@@ -45,15 +51,23 @@ var EditSiteView = Backbone.View.extend({
 			style: {
 				headline: {
 					font: "Comic Sans MS",
-					color: "#5cf"
+					color: "#5cf",
+					size: "24px"
 				},
 				body: {
 					font: "Verdana",
-					color: "black"
+					color: "black",
+					size: "16px"
+				},
+				blockquote: {
+					font: "Verdana",
+					color: "#f4a",
+					size: "18px"
 				},
 				lead: {
 					color: "black",
-					bold: true
+					bold: true,
+					size: "20px"
 				},
 				background: {
 					color: "#eee"
@@ -83,6 +97,15 @@ var EditSiteView = Backbone.View.extend({
 		this.app.getSelectedSite().set({style: style});
 	},
 	
+	changeHeadlineSize: function(e) {
+
+		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
+
+		style.headline.size = $(e.target).find("option:selected").val();
+
+		this.app.getSelectedSite().set({style: style});
+	},
+	
 	changeBodyFont: function(e) {
 		
 		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
@@ -101,11 +124,56 @@ var EditSiteView = Backbone.View.extend({
 		this.app.getSelectedSite().set({style: style});
 	},
 	
+	changeBodySize: function(e) {
+
+		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
+
+		style.body.size = $(e.target).find("option:selected").val();
+
+		this.app.getSelectedSite().set({style: style});
+	},
+	
+	changeBlockquoteFont: function(e) {
+		
+		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
+
+		style.blockquote.font = $(e.target).find("option:selected").val();
+
+		this.app.getSelectedSite().set({style: style});
+	},
+	
+	changeBlockquoteColor: function(e) {
+
+		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
+
+		style.blockquote.color = $(e.target).find("option:selected").val();
+
+		this.app.getSelectedSite().set({style: style});
+	},
+	
+	changeBlockquoteSize: function(e) {
+
+		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
+
+		style.blockquote.size = $(e.target).find("option:selected").val();
+
+		this.app.getSelectedSite().set({style: style});
+	},
+	
 	changeLeadColor: function(e) {
 
 		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
 
 		style.lead.color = $(e.target).find("option:selected").val();
+
+		this.app.getSelectedSite().set({style: style});
+	},
+	
+	changeLeadSize: function(e) {
+
+		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
+
+		style.lead.size = $(e.target).find("option:selected").val();
 
 		this.app.getSelectedSite().set({style: style});
 	},
@@ -133,11 +201,18 @@ var EditSiteView = Backbone.View.extend({
 		
 		this.$el.find("#headline-font").val(style.headline.font);
 		this.$el.find("#headline-color").val(style.headline.color);
+		this.$el.find("#headline-size").val(style.headline.size);
 
 		this.$el.find("#body-font").val(style.body.font);
 		this.$el.find("#body-color").val(style.body.color);
+		this.$el.find("#body-size").val(style.body.size);
+
+		this.$el.find("#blockquote-font").val(style.blockquote.font);
+		this.$el.find("#blockquote-color").val(style.blockquote.color);
+		this.$el.find("#blockquote-size").val(style.blockquote.size);
 
 		this.$el.find("#lead-color").val(style.lead.color);
+		this.$el.find("#lead-size").val(style.lead.size);
 		this.$el.find("#lead-bold").attr("checked", style.lead.bold);
 
 		this.$el.find("#background-color").val(style.background.color);
@@ -186,18 +261,28 @@ var SiteView = Backbone.View.extend({
 
 		this.$el.find("h2").css({
 			color: data.style.headline.color,
+			"font-size": data.style.headline.size,
 			"font-family": data.style.headline.font
 		});
 
 		this.$el.find("p").css({
 			color: data.style.body.color,
+			"font-size": data.style.body.size,
 			"font-family": data.style.body.font
 		});
 
 		this.$el.find("p.lead").css({
 			color: data.style.lead.color,
+			"font-size": data.style.lead.size,
 			"font-weight": data.style.lead.bold ? "bold" : "normal"
 		});
+
+		this.$el.find("blockquote").css({
+			color: data.style.blockquote.color,
+			"font-size": data.style.blockquote.size,
+			"font-family": data.style.blockquote.font
+		});
+
 
 		this.$el.css({
 			"background-color": data.style.background.color
