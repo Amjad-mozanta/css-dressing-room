@@ -50,12 +50,36 @@
 						{{/ fonts }}
 					</select>
 					<select class="font-weight">
-						<option value="inherit">inherit</option>
 						<option value="normal">normal</option>
 						<option value="bold">bold</option>
 					</select>
+					<select class="font-style">
+						<option value="normal">normal</option>
+						<option value="italic">italic</option>
+					</select>
 				</div>
 	
+				<div class="a">
+					<h3>Links</h3>
+					<select class="color">
+						{{# colors }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ colors }}
+					</select>
+					<select class="font-weight">
+						<option value="normal">normal</option>
+						<option value="bold">bold</option>
+					</select>
+					<select class="font-style">
+						<option value="normal">normal</option>
+						<option value="italic">italic</option>
+					</select>
+					<select class="text-decoration">
+						<option value="none">none</option>
+						<option value="underline">underline</option>
+					</select>
+				</div>
+
 				<div class="lead">
 					<h3>Lead</h3>
 					<select class="color">
@@ -68,10 +92,18 @@
 							<option value="{{ . }}" >{{ . }}</option>
 						{{/ sizes }}
 					</select>
+					<select class="font-family">
+						{{# fonts }}
+							<option value="{{ . }}">{{ . }}</option>
+						{{/ fonts }}
+					</select>
 					<select class="font-weight">
-						<option value="inherit">inherit</option>
 						<option value="normal">normal</option>
 						<option value="bold">bold</option>
+					</select>
+					<select class="font-style">
+						<option value="normal">normal</option>
+						<option value="italic">italic</option>
 					</select>
 				</div>
 	
@@ -92,6 +124,14 @@
 							<option value="{{ . }}">{{ . }}</option>
 						{{/ fonts }}
 					</select>
+					<select class="font-weight">
+						<option value="normal">normal</option>
+						<option value="bold">bold</option>
+					</select>
+					<select class="font-style">
+						<option value="normal">normal</option>
+						<option value="italic">italic</option>
+					</select>
 				</div>
 	
 				<div class="blockquote">
@@ -110,6 +150,14 @@
 						{{# fonts }}
 							<option value="{{ . }}">{{ . }}</option>
 						{{/ fonts }}
+					</select>
+					<select class="font-weight">
+						<option value="normal">normal</option>
+						<option value="bold">bold</option>
+					</select>
+					<select class="font-style">
+						<option value="normal">normal</option>
+						<option value="italic">italic</option>
 					</select>
 				</div>
 
