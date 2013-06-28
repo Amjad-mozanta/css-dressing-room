@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en-us">
 	<head>
 		<title>CSS Dressing Room</title>
@@ -15,7 +15,7 @@
 		<script src="client.js"></script>
 		
 		<script id="site-template" type="text/template-hogan">
-			<li>
+			<div class="site">
 				<h2>{{ headline }}</h2>
 				{{# byline }}
 					<p class="byline vcard">
@@ -27,12 +27,14 @@
 				<p>{{ body1 }}</p>
 				<blockquote>{{ block-quote }}</blockquote>
 				<p>{{ body2 }}</p>
-			</li>
+			</div>
 		</script>
 	</head>
 	<body>
 		<h1>CSS Dressing Room</h1>
 		<p>Want to quickly try out some typography and color combinations? Use the buttons and stuff below to mix and match.</p>
+
+		<ul id="sites"></ul>
 		
 		<div id="site-controls">
 			<div id="style-settings">
@@ -278,8 +280,7 @@
 			<button id="add-site">New</button>
 		</div>
 		
-		<ul id="sites"></ul>
-
+		<div id="current-site"></div>
 
 	</body>
 </html>
