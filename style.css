@@ -17,11 +17,18 @@ ul#sites {
 ul#sites li {
   list-style: none;
   float: left;
-  overflow: hidden;
-  margin-bottom: 10px;
+  margin-top: 10px;
   margin-right: 10px;
   width: 132px;
   height: 152px;
+  position: relative;
+}
+ul#sites li#add-site {
+  background-color: #eee;
+}
+ul#sites li#add-site span {
+  position: absolute;
+  margin: 20px 10px;
 }
 ul#sites li div.site {
   transform: scale(0.2);
@@ -35,10 +42,26 @@ ul#sites li div.site {
   -ms-transform-origin: 0 0;
   -o-transform-origin: 0 0;
 }
+ul#sites li span.delete-button {
+  position: absolute;
+  top: -24px;
+  right: -24px;
+  color: red;
+  opacity: 0;
+  transition: opacity 0.1s;
+  -webkit-transition: opacity 0.1s;
+  -moz-transition: opacity 0.1s;
+  -ms-transition: opacity 0.1s;
+  -o-transition: opacity 0.1s;
+}
+ul#sites li:hover span.delete-button {
+  opacity: 1;
+}
 div.site {
   width: 600px;
   height: 700px;
   padding: 30px;
+  overflow: hidden;
   /* Overide bootstraps styling. */
 
 }
