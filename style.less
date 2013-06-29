@@ -63,12 +63,22 @@ ul#sites {
 
 	li {
 
+		&#add-site {
+
+			background-color: #eee;
+
+			span {
+
+				position: absolute;
+				margin: 20px 10px;
+			}
+		}
+
 		list-style: none;
 
 		float: left;
-		overflow: hidden;
 
-		margin-bottom: 10px;
+		margin-top: 10px;
 		margin-right: 10px;
 //		&:nth-child(5n+0) {
 //			margin-right: 0;
@@ -81,6 +91,23 @@ ul#sites {
 
 			.transform(scale(1 / @site-thumbnail-zoom), 0 0);
 		}
+
+		position: relative;
+		span.delete-button {
+
+			position: absolute;
+			top: -24px;
+			right: -24px;
+			color: red;
+
+			opacity: 0;
+			.transition(opacity 0.1s);
+		}
+		&:hover span.delete-button {
+
+			opacity: 1;
+		}
+
 	}
 }
 
@@ -89,6 +116,7 @@ div.site {
 	width: @site-width;
 	height: @site-height;
 	padding: @site-padding;
+	overflow: hidden;
 
 	/* Overide bootstraps styling. */
 	blockquote {
