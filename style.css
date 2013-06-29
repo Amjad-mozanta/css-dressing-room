@@ -8,7 +8,7 @@ a {
 #site-controls h3 {
   margin: 0;
   display: inline-block;
-  width: 100px;
+  width: 150px;
 }
 ul#sites {
   padding: 0;
@@ -39,4 +39,10 @@ div.site {
   width: 600px;
   height: 700px;
   padding: 30px;
+  /* Overide bootstraps styling. */
+
+}
+div.site blockquote {
+  border: 0;
+  margin: 20px 40px;
 }
