@@ -61,7 +61,6 @@ var Site = Backbone.Model.extend({
 
 var Sites = Backbone.Collection.extend({
 	model: Site,
-	localStorage: new Store("sites"),
 	initialize: function(models, options) {
 		this.app = options.app;
 		this.on("add", this.onAdd, this);
@@ -73,10 +72,22 @@ var Sites = Backbone.Collection.extend({
 });
 
 
+var AddSiteView = Backbone.View.extend({
+
+	events: {
+		"click": "addSite",
+	},
+
+	addSite: function(e) {
+
+		this.collection.add(new Site());
+	}
+});
+
+
 var EditSiteView = Backbone.View.extend({
 
 	events: {
-		"click #add-site": "addSite",
 		"change #style-settings": "changeStyleSettings",
 	},
 
@@ -84,12 +95,6 @@ var EditSiteView = Backbone.View.extend({
 		this.app = this.options.app;
 	},
 
-	addSite: function(e) {
-
-		var site = this.collection.create();		
-		// this.app.setSelectedSite(site);
-	},
-	
 	changeStyleSettings: function(e) {
 
 		// *Deep copy* the old style. Just getting it is not enough, since Backbone will compare it to itself. (The object passed around is the same as the one stored originally.)
@@ -149,12 +154,12 @@ var SitesView = Backbone.View.extend({
 		
 		this.app = this.options.app;
 
-		this.template = Hogan.compile($("#site-template").text());
+		this.template = Hogan.compile($("#site-template").text() + $("#site-delete-button-template").text());
 	},
 
 	prependSite: function(site) {
 		
-		var siteElement = $("<li>" + this.template.render(site.toJSON().content) + "</li>");
+		var siteElement = $("<li>" + this.template.render(site.toJSON().content) + '</li>');
 		
 		site.view = new SiteView({
 			el: siteElement,
@@ -195,9 +200,12 @@ function applyModelToElement(site, element){
 var SiteView = Backbone.View.extend({
 
 	initialize: function() {
+
 		this.model.on("change", this.updateSite, this);
 		
 		this.app = this.options.app;
+
+		applyModelToElement(this.model, this.$el);
 	},
 
 	updateSite: function(site){
@@ -206,9 +214,16 @@ var SiteView = Backbone.View.extend({
 	},
 
 	events: {
+		"click .delete-button": "deleteSite",
 		"click": "selectSite"
 	},
 	
+	deleteSite: function(e) {
+		
+		this.collection.remove(this.model);
+		this.el.remove();
+	},
+
 	selectSite: function(e) {
 		
 		this.app.setSelectedSite(this.model);
@@ -234,12 +249,17 @@ function App() {
 	this.sites = new Sites([], {
 		app: this
 	});
-//	sites.fetch();
+//	this.sites.fetch();
 
 	this.sitesView = new SitesView({
 		el: $("#sites"),
 		collection: this.sites,
 		app: this
+	});
+
+	this.addSiteView = new AddSiteView({
+		el: $("#add-site"),
+		collection: this.sites
 	});
 
 	this.editSiteView = new EditSiteView({
@@ -256,14 +276,11 @@ function App() {
 	});
 
 
-	var site = this.sites.create();		
-//	this.setSelectedSite(site);
+	this.sites.add(new Site());
 };
 
 
 $(function(){
 	
-	$("select").selectpicker();
-
 	var app = new App();
 });
