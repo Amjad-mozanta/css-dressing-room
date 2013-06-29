@@ -62,6 +62,14 @@ var Site = Backbone.Model.extend({
 var Sites = Backbone.Collection.extend({
 	model: Site,
 	localStorage: new Store("sites"),
+	initialize: function(models, options) {
+		this.app = options.app;
+		this.on("add", this.onAdd, this);
+	},
+	onAdd: function(model) {
+		
+		this.app.setSelectedSite(model);
+	}
 });
 
 
@@ -79,7 +87,7 @@ var EditSiteView = Backbone.View.extend({
 	addSite: function(e) {
 
 		var site = this.collection.create();		
-		this.app.setSelectedSite(site);
+		// this.app.setSelectedSite(site);
 	},
 	
 	changeStyleSettings: function(e) {
@@ -223,7 +231,9 @@ function App() {
 		return this.selectedSite;
 	};
 
-	this.sites = new Sites();
+	this.sites = new Sites([], {
+		app: this
+	});
 //	sites.fetch();
 
 	this.sitesView = new SitesView({
@@ -246,12 +256,14 @@ function App() {
 	});
 
 
-//	var site = this.sites.create();		
+	var site = this.sites.create();		
 //	this.setSelectedSite(site);
 };
 
 
 $(function(){
 	
-	var app = new App();	
+	$("select").selectpicker();
+
+	var app = new App();
 });
