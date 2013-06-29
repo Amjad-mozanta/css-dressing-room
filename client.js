@@ -263,7 +263,5 @@ function App() {
 
 $(function(){
 	
-	$("select").selectpicker();
-
 	var app = new App();
 });
