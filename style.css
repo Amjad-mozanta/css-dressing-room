@@ -1,0 +1,42 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00B7FF;
+}
+#site-controls h3 {
+  margin: 0;
+  display: inline-block;
+  width: 100px;
+}
+ul#sites {
+  padding: 0;
+  overflow: auto;
+}
+ul#sites li {
+  list-style: none;
+  float: left;
+  overflow: hidden;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 132px;
+  height: 152px;
+}
+ul#sites li div.site {
+  transform: scale(0.2);
+  -webkit-transform: scale(0.2);
+  -moz-transform: scale(0.2);
+  -ms-transform: scale(0.2);
+  -o-transform: scale(0.2);
+  transform-origin: 0 0;
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  -o-transform-origin: 0 0;
+}
+div.site {
+  width: 600px;
+  height: 700px;
+  padding: 30px;
+}
