@@ -4,14 +4,20 @@
 		<title>CSS Dressing Room</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   
-		<link rel="stylesheet" href="style.css"/>
-
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.0/backbone.localStorage-min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/hogan.js/2.0.0/hogan.js"></script>
 
+		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+		<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" href="bootstrap-select/bootstrap-select.css"/>
+		<script src="bootstrap-select/bootstrap-select.js"></script>
+
+		<link rel="stylesheet" href="style.css"/>
 		<script src="client.js"></script>
 		
 		<script id="site-template" type="text/template-hogan">
@@ -37,11 +43,14 @@
 		<ul id="sites"></ul>
 		
 		<div id="site-controls">
+
+			<button id="add-site" class="btn">New</button>
+
 			<div id="style-settings">
 
 				<div class="background">
-					<h3>Background</h3>
-					<select class="background-color">
+					<label>Background</label>
+					<select data-width="auto" class="background-color">
 							<option value="black">black</option>
 							<option value="#444">#444</option>
 							<option value="#666">#666</option>
@@ -56,8 +65,8 @@
 				</div>
 	
 				<div class="h2">
-					<h3>Headline</h3>
-					<select class="color">
+					<label>Headline</label>
+					<select data-width="auto" class="color">
 							<option value="black">black</option>
 							<option value="#444">#444</option>
 							<option value="#666">#666</option>
@@ -69,7 +78,7 @@
 							<option value="#ae0">#ae0</option>
 							<option value="#5cf">#5cf</option>
 					</select>
-					<select class="font-size">
+					<select data-width="auto" class="font-size">
 							<option value="6px" >6px</option>
 							<option value="8px" >8px</option>
 							<option value="10px" >10px</option>
@@ -81,7 +90,7 @@
 							<option value="30px" >30px</option>
 							<option value="36px" >36px</option>
 					</select>
-					<select class="font-family">
+					<select data-width="auto" class="font-family">
 							<option value="Arial">Arial</option>
 							<option value="Arial Black">Arial Black</option>
 							<option value="Comic Sans MS">Comic Sans MS</option>
@@ -93,19 +102,19 @@
 							<option value="Trebuchet MS">Trebuchet MS</option>
 							<option value="Verdana">Verdana</option>
 					</select>
-					<select class="font-weight">
+					<select data-width="auto" class="font-weight">
 						<option value="normal">normal</option>
 						<option value="bold">bold</option>
 					</select>
-					<select class="font-style">
+					<select data-width="auto" class="font-style">
 						<option value="normal">normal</option>
 						<option value="italic">italic</option>
 					</select>
 				</div>
 	
 				<div class="a">
-					<h3>Links</h3>
-					<select class="color">
+					<label>Links</label>
+					<select data-width="auto" class="color">
 							<option value="black">black</option>
 							<option value="#444">#444</option>
 							<option value="#666">#666</option>
@@ -117,23 +126,23 @@
 							<option value="#ae0">#ae0</option>
 							<option value="#5cf">#5cf</option>
 					</select>
-					<select class="font-weight">
+					<select data-width="auto" class="font-weight">
 						<option value="normal">normal</option>
 						<option value="bold">bold</option>
 					</select>
-					<select class="font-style">
+					<select data-width="auto" class="font-style">
 						<option value="normal">normal</option>
 						<option value="italic">italic</option>
 					</select>
-					<select class="text-decoration">
+					<select data-width="auto" class="text-decoration">
 						<option value="none">none</option>
 						<option value="underline">underline</option>
 					</select>
 				</div>
 
 				<div class="lead">
-					<h3>Lead</h3>
-					<select class="color">
+					<label>Lead</label>
+					<select data-width="auto" class="color">
 							<option value="black">black</option>
 							<option value="#444">#444</option>
 							<option value="#666">#666</option>
@@ -145,7 +154,7 @@
 							<option value="#ae0">#ae0</option>
 							<option value="#5cf">#5cf</option>
 					</select>
-					<select class="font-size">
+					<select data-width="auto" class="font-size">
 							<option value="6px" >6px</option>
 							<option value="8px" >8px</option>
 							<option value="10px" >10px</option>
@@ -157,7 +166,7 @@
 							<option value="30px" >30px</option>
 							<option value="36px" >36px</option>
 					</select>
-					<select class="font-family">
+					<select data-width="auto" class="font-family">
 							<option value="Arial">Arial</option>
 							<option value="Arial Black">Arial Black</option>
 							<option value="Comic Sans MS">Comic Sans MS</option>
@@ -169,19 +178,19 @@
 							<option value="Trebuchet MS">Trebuchet MS</option>
 							<option value="Verdana">Verdana</option>
 					</select>
-					<select class="font-weight">
+					<select data-width="auto" class="font-weight">
 						<option value="normal">normal</option>
 						<option value="bold">bold</option>
 					</select>
-					<select class="font-style">
+					<select data-width="auto" class="font-style">
 						<option value="normal">normal</option>
 						<option value="italic">italic</option>
 					</select>
 				</div>
 	
 				<div class="p">
-					<h3>Body</h3>
-					<select class="color">
+					<label>Body</label>
+					<select data-width="auto" class="color">
 							<option value="black">black</option>
 							<option value="#444">#444</option>
 							<option value="#666">#666</option>
@@ -193,7 +202,7 @@
 							<option value="#ae0">#ae0</option>
 							<option value="#5cf">#5cf</option>
 					</select>
-					<select class="font-size">
+					<select data-width="auto" class="font-size">
 							<option value="6px" >6px</option>
 							<option value="8px" >8px</option>
 							<option value="10px" >10px</option>
@@ -205,7 +214,7 @@
 							<option value="30px" >30px</option>
 							<option value="36px" >36px</option>
 					</select>
-					<select class="font-family">
+					<select data-width="auto" class="font-family">
 							<option value="Arial">Arial</option>
 							<option value="Arial Black">Arial Black</option>
 							<option value="Comic Sans MS">Comic Sans MS</option>
@@ -217,19 +226,19 @@
 							<option value="Trebuchet MS">Trebuchet MS</option>
 							<option value="Verdana">Verdana</option>
 					</select>
-					<select class="font-weight">
+					<select data-width="auto" class="font-weight">
 						<option value="normal">normal</option>
 						<option value="bold">bold</option>
 					</select>
-					<select class="font-style">
+					<select data-width="auto" class="font-style">
 						<option value="normal">normal</option>
 						<option value="italic">italic</option>
 					</select>
 				</div>
 	
 				<div class="blockquote">
-					<h3>Blockquote</h3>
-					<select class="color">
+					<label>Blockquote</label>
+					<select data-width="auto" class="color">
 							<option value="black">black</option>
 							<option value="#444">#444</option>
 							<option value="#666">#666</option>
@@ -241,7 +250,7 @@
 							<option value="#ae0">#ae0</option>
 							<option value="#5cf">#5cf</option>
 					</select>
-					<select class="font-size">
+					<select data-width="auto" class="font-size">
 							<option value="6px" >6px</option>
 							<option value="8px" >8px</option>
 							<option value="10px" >10px</option>
@@ -253,7 +262,7 @@
 							<option value="30px" >30px</option>
 							<option value="36px" >36px</option>
 					</select>
-					<select class="font-family">
+					<select data-width="auto" class="font-family">
 							<option value="Arial">Arial</option>
 							<option value="Arial Black">Arial Black</option>
 							<option value="Comic Sans MS">Comic Sans MS</option>
@@ -265,11 +274,11 @@
 							<option value="Trebuchet MS">Trebuchet MS</option>
 							<option value="Verdana">Verdana</option>
 					</select>
-					<select class="font-weight">
+					<select data-width="auto" class="font-weight">
 						<option value="normal">normal</option>
 						<option value="bold">bold</option>
 					</select>
-					<select class="font-style">
+					<select data-width="auto" class="font-style">
 						<option value="normal">normal</option>
 						<option value="italic">italic</option>
 					</select>
@@ -277,7 +286,6 @@
 
 			</div>
 
-			<button id="add-site">New</button>
 		</div>
 		
 		<div id="current-site"></div>
