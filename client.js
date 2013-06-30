@@ -150,14 +150,14 @@ var SitesView = Backbone.View.extend({
 
 	initialize: function() {
 
-		this.collection.on("add", this.prependSite, this);
+		this.collection.on("add", this.appendSite, this);
 		
 		this.app = this.options.app;
 
 		this.template = Hogan.compile($("#site-template").text() + $("#site-delete-button-template").text());
 	},
 
-	prependSite: function(site) {
+	appendSite: function(site) {
 		
 		var siteElement = $("<li>" + this.template.render(site.toJSON().content) + '</li>');
 		
@@ -168,7 +168,7 @@ var SitesView = Backbone.View.extend({
 			app: this.app
 		});
 		
-		this.$el.prepend(siteElement);
+		siteElement.insertBefore(this.$el.find("li#add-site"));
 	}
 });
 
