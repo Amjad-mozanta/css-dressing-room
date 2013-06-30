@@ -1,10 +1,10 @@
 CSS Dressing Room
 =================
 
-A tool to quickly try out color schemes and typography.
+A tool to quickly try out color schemes and typography. Try it out on [the project page](http://geon.github.io/css-dressing-room/).
 
 
-Status: Just messing around with Backbone so far.
+Status: The basic functionality is there, but the UI is still horrible.
 
 TODO
 ----
