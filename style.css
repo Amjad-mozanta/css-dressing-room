@@ -31,16 +31,16 @@ ul#sites li#add-site span {
   margin: 20px 10px;
 }
 ul#sites li div.site {
-  transform: scale(0.2);
   -webkit-transform: scale(0.2);
   -moz-transform: scale(0.2);
   -ms-transform: scale(0.2);
   -o-transform: scale(0.2);
-  transform-origin: 0 0;
+  transform: scale(0.2);
   -webkit-transform-origin: 0 0;
   -moz-transform-origin: 0 0;
   -ms-transform-origin: 0 0;
   -o-transform-origin: 0 0;
+  transform-origin: 0 0;
 }
 ul#sites li span.delete-button {
   position: absolute;
@@ -48,11 +48,11 @@ ul#sites li span.delete-button {
   right: -24px;
   color: red;
   opacity: 0;
-  transition: opacity 0.1s;
   -webkit-transition: opacity 0.1s;
   -moz-transition: opacity 0.1s;
   -ms-transition: opacity 0.1s;
   -o-transition: opacity 0.1s;
+  transition: opacity 0.1s;
 }
 ul#sites li:hover span.delete-button {
   opacity: 1;
@@ -62,10 +62,13 @@ div.site {
   height: 700px;
   padding: 30px;
   overflow: hidden;
-  /* Overide bootstraps styling. */
-
 }
 div.site blockquote {
+  /* Overide bootstraps styling. */
+
   border: 0;
   margin: 20px 40px;
+}
+div#current-site span.delete-button {
+  display: none;
 }
