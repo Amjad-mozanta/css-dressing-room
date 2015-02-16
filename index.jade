@@ -15,19 +15,20 @@ html(lang='en-us')
 		script(src='client.js')
 		script#site-template(type='text/template-hogan')
 			.site
-				h2 {{ headline }}
-				| {{# byline }}
-				p.byline.vcard
-					| By 
-					a.author.fn(href='{{ url }}') {{ name }}
-					span.publish-date
-						|  on 
-						time.updated(datetime='2012-08-06 15:45:07+0000', pubdate='') August 6, 2012 11:45 am
-				| {{/ byline }}
-				p.lead {{ lead }}
-				p {{ body1 }}
-				blockquote {{ block-quote }}
-				p {{ body2 }}
+				.background
+					h2 {{ headline }}
+					| {{# byline }}
+					p.byline.vcard
+						| By 
+						a.author.fn(href='{{ url }}') {{ name }}
+						span.publish-date
+							|  on 
+							time.updated(datetime='2012-08-06 15:45:07+0000', pubdate='') August 6, 2012 11:45 am
+					| {{/ byline }}
+					p.lead {{ lead }}
+					p {{ body1 }}
+					blockquote {{ block-quote }}
+					p {{ body2 }}
 		script#site-delete-button-template(type='text/template-hogan')
 			span.delete-button.icon-stack.icon-2x
 				i.icon-circle.icon-light
@@ -46,7 +47,7 @@ html(lang='en-us')
 					i.icon-plus.icon-light
 		#site-controls
 			#style-settings
-				div(class='div.site')
+				div(class='div.background')
 					label Background
 					select.background-color(data-width='auto')
 						option(value='black') black

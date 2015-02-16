@@ -46,7 +46,7 @@ var defaults = {
 			"font-weight": "normal",
 			"font-style": "normal"
 		},
-		"div.site": {
+		"div.background": {
 			"background-color": "#444"
 		}
 	}
@@ -55,7 +55,7 @@ var defaults = {
 // It's important to order them by specifity, or "element" will override "element.class", etc.
 var styledSiteElements = [
 	{
-		selector: "div.site",
+		selector: "div.background",
 		attributes: {
 			"background-color": "#444"
 		}
@@ -239,25 +239,11 @@ var SitesView = Backbone.View.extend({
 
 function applyModelToElement(site, element){
 
-	var style = site.toJSON().style;
-
-	var specialElementNames = [
-		'background',
-		'lead'
-	];
-
-	// Map over all "normal" style rules, the ones with a 1:1 mapping to a tag name.
-	var normalStyleRules = _.pick(style, _.difference(_.keys(style), specialElementNames));
-	_.map(normalStyleRules, function(value, tagName) {
+	_.each(site.get("style"), function(value, tagName) {
 
 		// Simply set the style on the elements of that name.
 		element.find(tagName).css(value);
-		
-	}, this);
-
-	// These are a bit special:
-	element.find("p.lead").css(style.lead)	// The .lead should override the p-style.
-	element.css(style.background);			// The background color should be applied to the site container as a whole.
+	});
 }
 
 
