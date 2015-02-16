@@ -1,16 +1,7 @@
+"use strict";
+
 
 var defaults = {
-	content: {
-		headline: "Lorem ipsum",
-		byline: {
-			name: "Praesent Feugiat",
-			url: "http://geon.github.com",
-		},
-		lead: "Dolor sit amet, consectetur adipiscing elit. Sed enim turpis, placerat vel faucibus eget, accumsan semper nisl. Curabitur suscipit laoreet enim nec luctus. Sed quis ornare massa. Sed posuere turpis nec mi porta at dictum libero condimentum. Nulla nulla sapien, convallis sed egestas vel, aliquet a nibh.",
-		body1: "Curabitur ornare hendrerit lacinia. Sed et tincidunt elit. Pellentesque mi lacus, pellentesque eu porttitor vel, tempus consequat odio. Donec pharetra blandit condimentum. In nec dolor est, quis elementum purus. Mauris vel libero arcu, ac bibendum est.",
-		"block-quote": "Donec quis tortor eros, a ultrices tellus. Nulla vehicula semper ipsum sed semper. Vestibulum sed condimentum odio. Suspendisse non eros ac odio consectetur malesuada. Nulla facilisi.",
-		body2: "Vivamus venenatis interdum lacus, sed imperdiet lectus congue nec. Praesent et dolor sit amet eros tempus consectetur sed a elit. Integer dictum, odio eget imperdiet porta, quam libero ornare erat, a varius mi quam eget libero. Vestibulum eget laoreet urna. Integer auctor eros et augue gravida tristique. Pellentesque eget eleifend enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed luctus tristique lorem, ut commodo nulla lacinia eget."
-	},
 	style: {
 		h2: {
 			"font-family": "Georgia",
@@ -112,10 +103,6 @@ var styledSiteElements = [
 ];
 
 
-_.map(defaults.style, function(value, key){
-	console.log(key);
-}, this);
-			
 var Site = Backbone.Model.extend({
 	initialize: function(){
 	},
@@ -155,8 +142,8 @@ var EditSiteView = Backbone.View.extend({
 		"change #style-settings": "changeStyleSettings",
 	},
 
-	initialize: function() {
-		this.app = this.options.app;
+	initialize: function(options) {
+		this.app = options.app;
 	},
 
 	changeStyleSettings: function(e) {
@@ -174,7 +161,7 @@ var EditSiteView = Backbone.View.extend({
 	setSite: function(model) {
 				
 		// The relevant data.
-		var style = model.toJSON().style;
+		var style = model.get("style");
 		
 		// Map over all the element types.
 		var settingsRootElement = this.el;
@@ -199,8 +186,8 @@ var EditSiteView = Backbone.View.extend({
 
 var CurrentSiteView = Backbone.View.extend({
 
-	initialize: function() {
-		this.app = this.options.app;
+	initialize: function(options) {
+		this.app = options.app;
 	},
 
 	setSite: function(site){
@@ -212,27 +199,24 @@ var CurrentSiteView = Backbone.View.extend({
 
 var SitesView = Backbone.View.extend({
 
-	initialize: function() {
+
+	initialize: function(options) {
 
 		this.collection.on("add", this.appendSite, this);
 		
-		this.app = this.options.app;
-
-		this.template = Hogan.compile($("#site-template").text() + $("#site-delete-button-template").text());
+		this.app = options.app;
 	},
+
 
 	appendSite: function(site) {
 		
-		var siteElement = $("<li>" + this.template.render(site.toJSON().content) + '</li>');
-		
 		site.view = new SiteView({
-			el: siteElement,
 			collection: this.collection,
 			model: site,
 			app: this.app
 		});
 		
-		siteElement.insertBefore(this.$el.find("li#add-site"));
+		site.view.$el.insertBefore(this.$el.find("li#add-site"));
 	}
 });
 
@@ -249,30 +233,38 @@ function applyModelToElement(site, element){
 
 var SiteView = Backbone.View.extend({
 
-	initialize: function() {
+
+	$template: $($.parseHTML($("#site-template").text())),
+
+
+	initialize: function(options) {
 
 		this.model.on("change", this.updateSite, this);
 		
-		this.app = this.options.app;
+		this.app = options.app;
 
 		applyModelToElement(this.model, this.$el);
 	},
+
 
 	updateSite: function(site){
 
 		applyModelToElement(site, this.$el);
 	},
 
+
 	events: {
 		"click .delete-button": "deleteSite",
 		"click": "selectSite"
 	},
+
 	
 	deleteSite: function(e) {
 		
 		this.collection.remove(this.model);
 		this.el.remove();
 	},
+
 
 	selectSite: function(e) {
 		
@@ -318,13 +310,12 @@ function App() {
 		app: this
 	});
 
-	var siteElement = $(this.sitesView.template.render(defaults.content));
+	var siteElement = SiteView.prototype.$template.clone().find('.site');
 	siteElement.appendTo($("#current-site"));
 	this.currentSiteView = new CurrentSiteView({
 		el: siteElement,
 		app: this
 	});
-
 
 	this.sites.add(new Site());
 };
