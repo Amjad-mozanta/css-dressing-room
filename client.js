@@ -39,18 +39,82 @@ var defaults = {
 			"font-weight": "normal",
 			"font-style": "italic"
 		},
-		lead: {
+		"p.lead": {
 			color: "#eee",
 			"font-size": "20px",
 			"font-family": "Verdana",
 			"font-weight": "normal",
 			"font-style": "normal"
 		},
-		background: {
+		"div.site": {
 			"background-color": "#444"
 		}
 	}
 };
+
+// It's important to order them by specifity, or "element" will override "element.class", etc.
+var styledSiteElements = [
+	{
+		selector: "div.site",
+		attributes: {
+			"background-color": "#444"
+		}
+	},
+	{
+		selector: "h2",
+		attributes: {
+			"font-family": "Georgia",
+			"color": "#5cf",
+			"font-size": "36px",
+			"font-weight": "normal",
+			"font-style": "normal"
+		}
+	},
+	{
+		selector: "a",
+		attributes: {
+			"color": "#f4a",
+			"font-weight": "normal",
+			"font-style": "normal",
+			"text-decoration": "none"
+		}
+	},
+	{
+		selector: "p",
+		attributes: {
+			"color": "#ccc",
+			"font-size": "16px",
+			"font-family": "Verdana",
+			"font-weight": "normal",
+			"font-style": "normal"
+		}
+	},
+	{
+		selector: "p.lead",
+		attributes: {
+			"color": "#eee",
+			"font-size": "20px",
+			"font-family": "Verdana",
+			"font-weight": "normal",
+			"font-style": "normal"
+		}
+	},
+	{
+		selector: "blockquote",
+		attributes: {
+			"color": "#5cf",
+			"font-size": "20px",
+			"font-family": "Verdana",
+			"font-weight": "normal",
+			"font-style": "italic"
+		}
+	}
+];
+
+
+_.map(defaults.style, function(value, key){
+	console.log(key);
+}, this);
 			
 var Site = Backbone.Model.extend({
 	initialize: function(){
