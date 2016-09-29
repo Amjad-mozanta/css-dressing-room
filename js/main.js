@@ -43,65 +43,6 @@ var defaults = {
 	}
 };
 
-// It's important to order them by specifity, or "element" will override "element.class", etc.
-var styledSiteElements = [
-	{
-		selector: "div.background",
-		attributes: {
-			"background-color": "#444"
-		}
-	},
-	{
-		selector: "h2",
-		attributes: {
-			"font-family": "Georgia",
-			"color": "#5cf",
-			"font-size": "36px",
-			"font-weight": "normal",
-			"font-style": "normal"
-		}
-	},
-	{
-		selector: "a",
-		attributes: {
-			"color": "#f4a",
-			"font-weight": "normal",
-			"font-style": "normal",
-			"text-decoration": "none"
-		}
-	},
-	{
-		selector: "p",
-		attributes: {
-			"color": "#ccc",
-			"font-size": "16px",
-			"font-family": "Verdana",
-			"font-weight": "normal",
-			"font-style": "normal"
-		}
-	},
-	{
-		selector: "p.lead",
-		attributes: {
-			"color": "#eee",
-			"font-size": "20px",
-			"font-family": "Verdana",
-			"font-weight": "normal",
-			"font-style": "normal"
-		}
-	},
-	{
-		selector: "blockquote",
-		attributes: {
-			"color": "#5cf",
-			"font-size": "20px",
-			"font-family": "Verdana",
-			"font-weight": "normal",
-			"font-style": "italic"
-		}
-	}
-];
-
 
 var Site = Backbone.Model.extend({
 	initialize: function(){
@@ -117,7 +58,7 @@ var Sites = Backbone.Collection.extend({
 		this.on("add", this.onAdd, this);
 	},
 	onAdd: function(model) {
-		
+
 		this.app.setSelectedSite(model);
 	}
 });
@@ -159,23 +100,23 @@ var EditSiteView = Backbone.View.extend({
 
 	// Set the styling controls to match the model.
 	setSite: function(model) {
-				
+
 		// The relevant data.
 		var style = model.get("style");
-		
+
 		// Map over all the element types.
 		var settingsRootElement = this.el;
 		_.map(style, function(styling, elementType){
-			
+
 			// The controls for each element type are grouped in a div with the class = it's key in the style object.
 			var settingsElement = settingsRootElement.getElementsByClassName(elementType)[0];
-			
+
 			// Map over all the style settings for that element type.
 			_.map(styling, function(value, key){
 
 				// The controls for each style setting has the class = it's key in the styling object.
 				var selectionElement = settingsElement.getElementsByClassName(key)[0];
-				
+
 				// Simply set the control to whatever is in the styling.
 				selectionElement.value = value;
 			});
@@ -203,19 +144,19 @@ var SitesView = Backbone.View.extend({
 	initialize: function(options) {
 
 		this.collection.on("add", this.appendSite, this);
-		
+
 		this.app = options.app;
 	},
 
 
 	appendSite: function(site) {
-		
+
 		site.view = new SiteView({
 			collection: this.collection,
 			model: site,
 			app: this.app
 		});
-		
+
 		site.view.$el.insertBefore(this.$el.find("li#add-site"));
 	}
 });
@@ -240,7 +181,7 @@ var SiteView = Backbone.View.extend({
 	initialize: function(options) {
 
 		this.model.on("change", this.updateSite, this);
-		
+
 		this.app = options.app;
 
 		applyModelToElement(this.model, this.$el);
@@ -258,23 +199,23 @@ var SiteView = Backbone.View.extend({
 		"click": "selectSite"
 	},
 
-	
+
 	deleteSite: function(e) {
-		
+
 		this.collection.remove(this.model);
 		this.el.remove();
 	},
 
 
 	selectSite: function(e) {
-		
+
 		this.app.setSelectedSite(this.model);
 	}
 });
 
 
 function App() {
-	
+
 	this.selectedSite = null;
 
 	this.setSelectedSite = function(model) {
@@ -322,6 +263,6 @@ function App() {
 
 
 $(function(){
-	
+
 	var app = new App();
 });
