@@ -50,13 +50,5 @@ var Site = Backbone.Model.extend({
 
 
 var Sites = Backbone.Collection.extend({
-	model: Site,
-	initialize: function(models, options) {
-		this.app = options.app;
-		this.on("add", this.onAdd, this);
-	},
-	onAdd: function(model) {
-
-		this.app.setSelectedSite(model);
-	}
+	model: Site
 });

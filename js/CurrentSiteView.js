@@ -1,11 +1,12 @@
 var CurrentSiteView = Backbone.View.extend({
 
 	initialize: function(options) {
-		this.app = options.app;
+
+		this.listenTo(this.collection, 'select', this.onSelect, this);
 	},
 
-	setSite: function(site){
+	onSelect: function(model) {
 
-		applyModelToElement(site, this.$el);
+		applyModelToElement(model, this.$el);
 	}
 });

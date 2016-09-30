@@ -7,21 +7,26 @@ var EditSiteView = Backbone.View.extend({
 
 	initialize: function(options) {
 		this.app = options.app;
+		this.selectedModel = null;
+		this.listenTo(this.collection, 'select', this.onSelect, this);
+	},
+
+	onSelect: function(model) {
+
+		this.selectedModel = model;
+		this.applyModelToElement(model);
 	},
 
 	changeStyleSettings: function(e) {
 
 		// *Deep copy* the old style. Just getting it is not enough, since Backbone will compare it to itself. (The object passed around is the same as the one stored originally.)
-		var style = $.extend(true, {}, this.app.getSelectedSite().get("style"));
-
+		var style = $.extend(true, {}, this.selectedModel.get("style"));
 		style[e.target.parentElement.className][e.target.className] = $(e.target).find("option:selected").val();
-
-		this.app.getSelectedSite().set({style: style});
-		this.app.currentSiteView.setSite(this.app.getSelectedSite());
+		this.selectedModel.set({style: style});
 	},
 
 	// Set the styling controls to match the model.
-	setSite: function(model) {
+	applyModelToElement: function(model) {
 
 		// The relevant data.
 		var style = model.get("style");

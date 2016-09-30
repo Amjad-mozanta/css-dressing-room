@@ -45,6 +45,6 @@ var SiteView = Backbone.View.extend({
 
 	selectSite: function(e) {
 
-		this.app.setSelectedSite(this.model);
+		this.model.trigger('select', this.model);
 	}
 });

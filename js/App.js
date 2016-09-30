@@ -1,17 +1,5 @@
 function App() {
 
-	this.selectedSite = null;
-
-	this.setSelectedSite = function(model) {
-		this.selectedSite = model;
-
-		this.editSiteView.setSite(model);
-		this.currentSiteView.setSite(model);
-	};
-
-	this.getSelectedSite = function() {
-		return this.selectedSite;
-	};
 
 	this.sites = new Sites([], {
 		app: this
@@ -20,8 +8,7 @@ function App() {
 
 	this.sitesView = new SitesView({
 		el: $("#sites"),
-		collection: this.sites,
-		app: this
+		collection: this.sites
 	});
 
 	this.addSiteView = new AddSiteView({
@@ -31,16 +18,16 @@ function App() {
 
 	this.editSiteView = new EditSiteView({
 		el: $("#site-controls"),
-		collection: this.sites,
-		app: this
+		collection: this.sites
 	});
 
 	var siteElement = SiteView.prototype.$template.clone().find('.site');
 	siteElement.appendTo($("#current-site"));
 	this.currentSiteView = new CurrentSiteView({
 		el: siteElement,
-		app: this
+		collection: this.sites
 	});
 
 	this.sites.add(new Site());
+	this.sites.trigger('select', this.sites.models[0]);
 };
