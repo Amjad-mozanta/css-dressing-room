@@ -1,3 +1,6 @@
+'use strict';
+
+
 var SitesView = Backbone.View.extend({
 
 

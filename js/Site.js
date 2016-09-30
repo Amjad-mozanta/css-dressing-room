@@ -1,5 +1,8 @@
+'use strict';
+
 
 var Site = Backbone.Model.extend({
+
 	defaults: {
 		styles: [
 			{
@@ -56,5 +59,6 @@ var Site = Backbone.Model.extend({
 
 
 var Sites = Backbone.Collection.extend({
+
 	model: Site
 });
