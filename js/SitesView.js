@@ -1,6 +1,11 @@
 var SitesView = Backbone.View.extend({
 
 
+	events: {
+		"click #add-site": "addSite",
+	},
+
+
 	initialize: function(options) {
 
 		this.collection.on("add", this.appendSite, this);
@@ -18,5 +23,14 @@ var SitesView = Backbone.View.extend({
 		});
 
 		site.view.$el.insertBefore(this.$el.find("li#add-site"));
+	},
+
+
+	addSite: function(e) {
+
+		var newSite = new Site();
+
+		this.collection.add(newSite);
+		this.collection.trigger('select', newSite);
 	}
 });

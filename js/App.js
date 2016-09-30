@@ -11,11 +11,6 @@ function App () {
 		collection: this.sites
 	});
 
-	this.addSiteView = new AddSiteView({
-		el: $("#add-site"),
-		collection: this.sites
-	});
-
 	this.editSiteView = new EditSiteView({
 		el: $("#site-controls"),
 		collection: this.sites
