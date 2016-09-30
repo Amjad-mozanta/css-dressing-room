@@ -1,9 +1,9 @@
-function App() {
+"use strict";
 
 
-	this.sites = new Sites([], {
-		app: this
-	});
+function App () {
+
+	this.sites = new Sites([]);
 //	this.sites.fetch();
 
 	this.sitesView = new SitesView({
