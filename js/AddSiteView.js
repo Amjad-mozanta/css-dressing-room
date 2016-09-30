@@ -7,6 +7,9 @@ var AddSiteView = Backbone.View.extend({
 
 	addSite: function(e) {
 
-		this.collection.add(new Site());
+		var newSite = new Site();
+
+		this.collection.add(newSite);
+		this.collection.trigger('select', newSite);
 	}
 });
