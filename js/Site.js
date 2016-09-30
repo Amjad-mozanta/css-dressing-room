@@ -1,51 +1,57 @@
 
-var defaults = {
-	style: {
-		h2: {
-			"font-family": "Georgia",
-			color: "#5cf",
-			"font-size": "36px",
-			"font-weight": "normal",
-			"font-style": "normal"
-		},
-		a: {
-			color: "#f4a",
-			"font-weight": "normal",
-			"font-style": "normal",
-			"text-decoration": "none"
-		},
-		p: {
-			color: "#ccc",
-			"font-size": "16px",
-			"font-family": "Verdana",
-			"font-weight": "normal",
-			"font-style": "normal"
-		},
-		blockquote: {
-			color: "#5cf",
-			"font-size": "20px",
-			"font-family": "Verdana",
-			"font-weight": "normal",
-			"font-style": "italic"
-		},
-		"p.lead": {
-			color: "#eee",
-			"font-size": "20px",
-			"font-family": "Verdana",
-			"font-weight": "normal",
-			"font-style": "normal"
-		},
-		"div.background": {
-			"background-color": "#444"
-		}
-	}
-};
-
-
 var Site = Backbone.Model.extend({
-	initialize: function(){
+	defaults: {
+		styles: [
+			{
+				'id': 'h2',
+				'font-family': 'Georgia',
+				color: '#5cf',
+				'font-size': '2.25em',
+				'font-weight': 'normal',
+				'font-style': 'normal'
+			},
+			{
+				'id': 'a',
+				color: '#f4a',
+				'font-weight': 'normal',
+				'font-style': 'normal',
+				'text-decoration': 'none'
+			},
+			{
+				'id': 'p',
+				color: '#ccc',
+				'font-size': '1em',
+				'font-family': 'Verdana',
+				'font-weight': 'normal',
+				'font-style': 'normal'
+			},
+			{
+				'id': 'blockquote',
+				color: '#5cf',
+				'font-size': '1.25em',
+				'font-family': 'Verdana',
+				'font-weight': 'normal',
+				'font-style': 'italic'
+			},
+			{
+				'id': 'p.lead',
+				color: '#eee',
+				'font-size': '1.25em',
+				'font-family': 'Verdana',
+				'font-weight': 'normal',
+				'font-style': 'normal'
+			},
+			{
+				'id': 'div.background',
+				'background-color': '#444',
+				'font-size': '14px'
+			}
+		]
 	},
-	defaults: defaults
+
+	relations: {
+		styles: Styles,
+	}
 });
 
 

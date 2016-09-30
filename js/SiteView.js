@@ -1,11 +1,4 @@
-function applyModelToElement(site, element){
-
-	_.each(site.get("style"), function(value, tagName) {
-
-		// Simply set the style on the elements of that name.
-		element.find(tagName).css(value);
-	});
-}
+"use strict";
 
 
 var SiteView = Backbone.View.extend({
