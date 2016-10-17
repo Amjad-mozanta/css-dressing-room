@@ -16,14 +16,7 @@ var FontWeightPickerView = PickerView.extend({
 
 	onFamilySelect: function (family) {
 
-		// TODO: Make the font family model have a collection instead.
-		this.collection.set(family.get('weights').map(function (value) {
-
-			return {
-				id: value,
-				value: value
-			};
-		}));
+		this.collection.set(family.get('weights'));
 	}
 
 });

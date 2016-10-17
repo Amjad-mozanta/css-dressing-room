@@ -17,6 +17,13 @@ var fontFamilies = [
 		id: family,
 		value: family,
 		weights: ['normal', 'bold']
+			.map(function (value) {
+
+				return {
+					id: value,
+					value: value
+				};
+			})
 	};
 });
 
