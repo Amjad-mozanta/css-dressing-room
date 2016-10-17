@@ -11,17 +11,11 @@ var CurrentSiteView = Backbone.View.extend({
 
 	initialize: function(options) {
 
-		this.selectedModel = null;
-		this.listenTo(this.collection, 'select', this.onSelect, this);
-		this.listenTo(this.collection, 'select change', this.onSelectOrChange, this);
+		this.listenTo(this.model, 'change', this.onChange, this);
+		applyModelToElement(this.model, this.$el);
 	},
 
-	onSelect: function(model) {
-
-		this.selectedModel = model;
-	},
-
-	onSelectOrChange: function(model) {
+	onChange: function(model) {
 
 		applyModelToElement(model, this.$el);
 	},
@@ -32,7 +26,7 @@ var CurrentSiteView = Backbone.View.extend({
 		e.stopPropagation();
 
 		new StyleDialogView({
-			model: this.selectedModel.get('styles').get(e.target.attributes['rel'].value)
+			model: this.model.get('styles').get(e.target.attributes['rel'].value)
 		});
 	}
 });
