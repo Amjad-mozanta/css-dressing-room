@@ -1,5 +1,22 @@
 "use strict";
 
+// TODO: Unify with CurrenSiteView, using common base views.
+var SiteElementView = Backbone.View.extend({
+
+	initialize: function(options) {
+
+		this.listenTo(this.model, 'change', this.applyModel, this);
+		this.applyModel();
+	},
+
+	applyModel: function(model) {
+
+		var css = this.model.toJSON();
+		delete css.id;
+
+		this.$el.css(css);
+	}
+});
 
 var SiteView = Backbone.View.extend({
 
@@ -14,15 +31,18 @@ var SiteView = Backbone.View.extend({
 
 	initialize: function(options) {
 
-		this.model.on("change", this.updateSite, this);
+		// TODO: Leaking subviews?
+		// Build the subviews. Each DOM node in the site template knows
+		// what selector it uses, through the `rel` attribute.
+		this.subViews = this.$el.find('[rel]').get()
+			.map(function (el) {
 
-		applyModelToElement(this.model, this.$el);
-	},
+				return new SiteElementView({
+					el: el,
+					model: this.model.get('styles').get(el.attributes['rel'].value)
+				});
 
-
-	updateSite: function(site){
-
-		applyModelToElement(site, this.$el);
+			}.bind(this));
 	},
 
 
