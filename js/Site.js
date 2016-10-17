@@ -8,21 +8,21 @@ var Site = Backbone.Model.extend({
 			{
 				'id': 'h2',
 				'font-family': 'Georgia',
-				color: '#5cf',
+				color: '#55ccff',
 				'font-size': '2.25em',
 				'font-weight': 'normal',
 				'font-style': 'normal'
 			},
 			{
 				'id': 'a',
-				color: '#f4a',
+				color: '#ff44aa',
 				'font-weight': 'normal',
 				'font-style': 'normal',
 				'text-decoration': 'none'
 			},
 			{
 				'id': 'p',
-				color: '#ccc',
+				color: '#cccccc',
 				'font-size': '1em',
 				'font-family': 'Verdana',
 				'font-weight': 'normal',
@@ -30,7 +30,7 @@ var Site = Backbone.Model.extend({
 			},
 			{
 				'id': 'blockquote',
-				color: '#5cf',
+				color: '#55ccff',
 				'font-size': '1.25em',
 				'font-family': 'Verdana',
 				'font-weight': 'normal',
@@ -38,7 +38,7 @@ var Site = Backbone.Model.extend({
 			},
 			{
 				'id': 'p.lead',
-				color: '#eee',
+				color: '#eeeeee',
 				'font-size': '1.25em',
 				'font-family': 'Verdana',
 				'font-weight': 'normal',
@@ -46,7 +46,7 @@ var Site = Backbone.Model.extend({
 			},
 			{
 				'id': 'div.background',
-				'background-color': '#444',
+				'background-color': '#444444',
 				'font-size': '14px'
 			}
 		]
@@ -54,7 +54,17 @@ var Site = Backbone.Model.extend({
 
 	relations: {
 		styles: Styles,
+	},
+
+	initialize: function () {
+
+		// Bubble the change event.
+		this.get('styles').on('change', function () {
+
+			this.collection.trigger('change', this);
+		}.bind(this))
 	}
+
 });
 
 

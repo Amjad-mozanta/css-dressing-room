@@ -11,11 +11,6 @@ function App () {
 		collection: this.sites
 	});
 
-	this.editSiteView = new EditSiteView({
-		el: $("#site-controls"),
-		collection: this.sites
-	});
-
 	var siteElement = SiteView.prototype.$template.clone().find('.site');
 	siteElement.appendTo($("#current-site"));
 	this.currentSiteView = new CurrentSiteView({

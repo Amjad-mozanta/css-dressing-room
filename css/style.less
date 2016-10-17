@@ -1,59 +1,192 @@
 
-// http://css-tricks.com/snippets/css/useful-css3-less-mixins/
-.transition (@transition) {
-	-webkit-transition: @transition;
-	-moz-transition:    @transition;
-	-ms-transition:     @transition; 
-	-o-transition:      @transition;  
-	transition:         @transition;
+@page-background-color: #fff;
+@accent-color-primary: #f4a;
+
+@text-color-dark: #000;
+@text-color-light: #fff;
+
+@font-size: 16px;
+@line-height: 1.5em;
+
+
+
+
+// Mixins
+
+.return-contrasting-color(@color, @dark: @text-color-dark, @light: @text-color-light) when (luma(@color) > 50%) {
+	@contrasting-color: @dark;
 }
-.transform(@transform){
-	-webkit-transform: @transform;
-	-moz-transform:    @transform;
-	-ms-transform:     @transform;
-	-o-transform:      @transform;
-	transform:         @transform;
+.return-contrasting-color(@color, @dark: @text-color-dark, @light: @text-color-light) when (luma(@color) =< 50%) {
+	@contrasting-color: @light;
 }
-.transform(@transform, @origin) {
+.contrasting-color(@color, @dark: @text-color-dark, @light: @text-color-light) when (luma(@color) > 50%) {
 
-	.transform(@transform);
+	color: @dark;
+}
+.contrasting-color(@color, @dark: @text-color-dark, @light: @text-color-light) when (luma(@color) =< 50%) {
 
-	-webkit-transform-origin: @origin;
-	-moz-transform-origin:    @origin;
-	-ms-transform-origin:     @origin;
-	-o-transform-origin:      @origin;
-	transform-origin:         @origin;
+	// Webkit on OS X has a rendering bug, causing light text on dark to be slightly bolder. (Not just the illusion.)
+	// https://web.archive.org/web/20131019233655/http://tanookilabs.com/your-fonts-look-bad-in-chrome-heres-the-fix
+	-webkit-font-smoothing: antialiased;
+
+	color: @light;
+}
+.contrasting-color-faded(@color, @amount: 75%, @dark: @text-color-dark, @light: @text-color-light) {
+
+	.contrasting-color(@color, fade(@dark, @amount), fade(@light, @amount));
+}
+.contrasting-color-mixed(@color, @amount: 75%, @dark: @text-color-dark, @light: @text-color-light) {
+
+	.contrasting-color(@color, mix(@dark, @color, @amount), mix(@light, @color, @amount));
+}
+
+.size(@size) {
+
+	width: @size;
+	height: @size;
+}
+.size(@width, @height) {
+
+	width: @width;
+	height: @height;
 }
 
 
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.text-outline(@color, @width: 1px, @steps: 32, @index: 0) when (@index < @steps) {
+
+	@angle: @index / @steps * 2 * pi();
+	text-shadow+: @width * sin(@angle) @width * cos(@angle) 0 @color;
+
+	.text-outline(@color, @width, @steps, @index + 1);
+}
+
+
+
+
+
+@import (css) 'cssreset-min.css';
+
+// Set global font for everything.
+* {
+
+	font-family: inherit;
+	font-family: inherit;
+	letter-spacing: inherit;
+}
+html {
+
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif, FontAwesome;
+	font-size: @font-size;
+	letter-spacing: 0.03em; // The font is just a *tiiiny* bit too cramped.
+
+	background: @page-background-color;
+}
+
+h1, h2, h3, p, hr {
+
+	margin-top: @line-height;
+}
+
+h1 {
+
+	font-size: 1.5em;
+}
+
+h2 {
+
+	font-size: 1.25em;
+}
+
+h3 {
+
+	font-size: 1em;
+	font-weight: bold;
+}
+
+h3 + p {
+
+	margin-top: 0;
+}
+
+p {
+
+	line-height: @line-height;
 }
 
 a {
-  color: #00B7FF;
-}
 
+	// TODO: color
+	text-decoration: none;
 
+	&:hover {
 
-
-
-#site-controls {
-
-	h3 {
-
-		margin: 0;
-		display: inline-block;
-		width: 150px;
+		text-decoration: underline;
 	}
 }
 
+button {
+
+	cursor: pointer;
+}
 
 @site-width: 600px;
 @site-height: 700px;
 @site-thumbnail-zoom: 5;
 @site-padding: 30px;
+
+body {
+
+	> #page {
+
+		margin: 50px;
+	}
+
+	> #modal-overlay {
+
+		display: none;
+
+		// Cover screen.
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+
+		// Frosted glass effect. (Together with blur on #page.)
+		background:rgba(255, 255, 255, .1) url('noise-3percent.png');
+
+		// Flexbox stuff to center `.dialog`.
+		align-items: center;
+		justify-content: center;
+
+		.dialog {
+
+			margin: 0 auto;
+
+			background: @page-background-color;
+
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, .2);
+		}
+	}
+
+	&.modal-overlay {
+
+		> #page {
+
+			// Frosted glass effect. (Together with noise on #modal-overlay.)
+			// Just eyekandy. IE support doesn't matter.
+			-webkit-filter: blur(4px);
+			        filter: blur(4px);
+		}
+
+		> #modal-overlay {
+
+			display: flex;
+		}
+	}
+}
 
 ul#sites {
 
@@ -85,13 +218,14 @@ ul#sites {
 //		&:nth-child(5n+0) {
 //			margin-right: 0;
 //		}
-		
+
 		width: (@site-width + @site-padding * 2) / @site-thumbnail-zoom;
 		height: (@site-height + @site-padding * 2) / @site-thumbnail-zoom;
 
 		div.site {
 
-			.transform(scale(1 / @site-thumbnail-zoom), 0 0);
+			transform: scale(1 / @site-thumbnail-zoom);
+			transform-origin: 0 0;
 		}
 
 		position: relative;
@@ -103,7 +237,7 @@ ul#sites {
 			color: red;
 
 			opacity: 0;
-			.transition(opacity 0.1s);
+			transition: opacity 0.1s;
 		}
 		&:hover span.delete-button {
 
@@ -126,7 +260,7 @@ div.site {
 	}
 
 	blockquote {
-		
+
 		/* Overide bootstraps styling. */
 
 		border: 0;
@@ -141,9 +275,214 @@ div.site {
 }
 
 div#current-site {
-	
+
 	span.delete-button {
 
 		display: none;
+	}
+}
+
+
+
+
+.dialog.style-picker {
+
+	.pickers {
+
+		@item-height: 40px;
+
+		display: flex;
+
+		.picker {
+
+			width: 150px;
+			margin: 0 0 0 30px;
+			&:first-child {
+				margin: 0;
+			}
+
+			ul.items {
+
+				height: 150px;
+				overflow-x: hidden;
+				overflow-y: scroll;
+				-webkit-overflow-scrolling: touch;
+
+				border-radius: 5px;
+				border: 1px solid #ccc;
+
+				// li {
+
+				// 	border-top: 1px solid #ccc;
+				// 	&:first-child {
+				// 		border: none;
+				// 	}
+				// }
+			}
+
+			> h2 {
+
+				margin: 0 0 10px 0;
+			}
+
+			label {
+
+				display: block;
+				.size(100%, @item-height);
+				margin: 0;
+
+				input {
+
+					// Hide the default widget.
+					// Opacity makes it tabbable & arrowable.
+					opacity: 0;
+					width: 0;
+					height: 0;
+					margin: 0;
+				}
+
+				.background {
+
+					display: block;
+					height: @item-height;
+					overflow: hidden;
+
+					.title {
+						// This convoluted height-setting is because the span will grow with
+						// a transform when selected, and would cover clickable area of
+						// neighbours otherwise.
+						display: block;
+						height: @item-height / 2;
+						line-height: @item-height / 2;
+						margin-top: @item-height / 4;
+
+						text-align: center;
+						.text-outline(white, 2px);
+
+						transition: all .2s;
+					}
+				}
+
+				input:checked + .background {
+
+					background: @accent-color-primary;
+
+					& > .title {
+
+						font-weight: bolder;
+
+						// Note: Transition + transform f*cks up overflow: hidden with rounded corners.
+						// https://groups.google.com/a/chromium.org/forum/#!topic/graphics-dev/OSHUzdGV-_k
+						// I can live with that because, yummy.
+						transform: scale(1.5);
+						transition: all .1s;
+					}
+				}
+			}
+		}
+
+		.picker.color {
+
+			input:checked + .background {
+
+				background: transparent;
+
+				.title {
+
+					color: @accent-color-primary;
+				}
+			}
+		}
+
+		.picker.font-family {
+
+			input:checked + .background .title {
+
+				font-weight: normal;
+			}
+		}
+
+		.picker.size {
+
+			input:checked + .background .title {
+
+				transform: scale(1);
+			}
+		}
+	}
+
+	.bottom-buttons {
+
+		button {
+
+			margin: 0 auto;
+			display: block;
+
+			font-size: 1.25em;
+			font-weight: bold;
+
+			border-radius: 5px;
+			padding: 6px 20px;
+			border: none;
+
+			.color (@color) {
+
+				@bulge: 6%;
+				@letterpress-amount: 10%;
+
+				& when (luma(@color) > 50%) {
+
+					text-shadow: 0 1px 0 lighten(@color, @letterpress-amount);
+					box-shadow: inset 0px 0px 2px 0px darken(@color, @letterpress-amount);
+				}
+				& when (luma(@color) <= 50%) {
+
+					text-shadow: 0 -1px 0 darken(@color, @letterpress-amount);
+				}
+				.contrasting-color(@color);
+				background: @color linear-gradient(to top, darken(@color, @bulge), @color, lighten(@color, @bulge));
+
+				&:active {
+
+					background: @color;
+				}
+
+				&:focus {
+
+					outline: none;
+				}
+			}
+
+			&.delete {
+
+				.color(#f31);
+
+				float: left;
+			}
+
+			&.save {
+
+				.color(#f8f8f8);
+
+				float: right;
+			}
+		}
+	}
+
+	position: relative;
+	i.close {
+
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		font-size: 22px;
+
+		color: #ccc;
+		transition: color 0.1s;
+		&:hover {
+
+			color: #aaa;
+			transition: color 0.2s;
+		}
 	}
 }
