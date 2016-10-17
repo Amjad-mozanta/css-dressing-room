@@ -41,7 +41,7 @@ var CurrentSiteView = Backbone.View.extend({
 
 		// TODO: Leaking subviews?
 		// Build the subviews. Each DOM node in the site template knows
-		// what selector it uses, throgh the `rel` attribute.
+		// what selector it uses, through the `rel` attribute.
 		this.subViews = this.$el.find('[rel]').get()
 			.map(function (el) {
 
