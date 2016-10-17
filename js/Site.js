@@ -60,7 +60,7 @@ var Site = Backbone.Model.extend({
 		// Bubble the change event.
 		this.get('styles').on('change', function () {
 
-			this.collection.trigger('change', this);
+			this.trigger('change', this);
 		}.bind(this))
 	}
 
