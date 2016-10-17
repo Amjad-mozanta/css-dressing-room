@@ -11,12 +11,10 @@ function App () {
 		collection: this.sites
 	});
 
-	var siteElement = SiteView.prototype.$template.clone().find('.site');
-	siteElement.appendTo($("#current-site"));
 	this.currentSiteView = new CurrentSiteView({
-		el: siteElement,
 		collection: this.sites
 	});
+	this.currentSiteView.$el.appendTo($("#current-site"));
 
 	this.sites.add(new Site());
 	this.sites.trigger('select', this.sites.models[0]);

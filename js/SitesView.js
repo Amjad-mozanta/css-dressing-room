@@ -25,7 +25,9 @@ var SitesView = Backbone.View.extend({
 			app: this.app
 		});
 
-		site.view.$el.insertBefore(this.$el.find("li#add-site"));
+		var li = $('<li>');
+		li.append(site.view.$el);
+		li.insertBefore(this.$el.find("li#add-site"));
 	},
 
 

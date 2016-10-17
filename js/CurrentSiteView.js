@@ -3,6 +3,8 @@
 // TODO: Have sub views that get their own model from the collection for their style.
 var CurrentSiteView = Backbone.View.extend({
 
+	$template: $($.parseHTML($("#site-template").text())),
+
 	events: {
 		'click': 'onClick'
 	},
