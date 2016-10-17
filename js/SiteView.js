@@ -16,8 +16,6 @@ var SiteView = Backbone.View.extend({
 
 		this.model.on("change", this.updateSite, this);
 
-		this.app = options.app;
-
 		applyModelToElement(this.model, this.$el);
 	},
 
