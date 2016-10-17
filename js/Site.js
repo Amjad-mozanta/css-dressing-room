@@ -17,8 +17,7 @@ var Site = Backbone.Model.extend({
 				'id': 'a',
 				color: '#ff44aa',
 				'font-weight': 'normal',
-				'font-style': 'normal',
-				'text-decoration': 'none'
+				'font-style': 'normal'
 			},
 			{
 				'id': 'p',
