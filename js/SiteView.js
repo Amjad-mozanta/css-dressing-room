@@ -3,8 +3,13 @@
 
 var SiteView = Backbone.View.extend({
 
-
 	$template: $($.parseHTML($("#site-template").text())),
+
+
+	events: {
+		"click .delete-button": "deleteSite",
+		"click": "selectSite"
+	},
 
 
 	initialize: function(options) {
@@ -20,12 +25,6 @@ var SiteView = Backbone.View.extend({
 	updateSite: function(site){
 
 		applyModelToElement(site, this.$el);
-	},
-
-
-	events: {
-		"click .delete-button": "deleteSite",
-		"click": "selectSite"
 	},
 
 
