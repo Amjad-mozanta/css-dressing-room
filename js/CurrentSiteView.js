@@ -1,9 +1,6 @@
 "use strict";
 
-// TODO: Have sub views that get their own model from the collection for their style.
-var CurrentSiteView = Backbone.View.extend({
-
-	$template: $($.parseHTML($("#site-template").text())),
+var SiteElement = Backbone.View.extend({
 
 	events: {
 		'click': 'onClick'
@@ -11,22 +8,48 @@ var CurrentSiteView = Backbone.View.extend({
 
 	initialize: function(options) {
 
-		this.listenTo(this.model, 'change', this.onChange, this);
-		applyModelToElement(this.model, this.$el);
+		this.listenTo(this.model, 'change', this.applyModel, this);
+		this.applyModel();
 	},
 
-	onChange: function(model) {
+	applyModel: function(model) {
 
-		applyModelToElement(model, this.$el);
+		var css = this.model.toJSON();
+		delete css.id;
+
+		this.$el.css(css);
 	},
 
 	onClick: function (e) {
 
+		// TODO: This feels out of place.
 		e.preventDefault();
 		e.stopPropagation();
 
 		new StyleDialogView({
-			model: this.model.get('styles').get(e.target.attributes['rel'].value)
+			model: this.model
 		});
+	}
+});
+
+
+var CurrentSiteView = Backbone.View.extend({
+
+	$template: $($.parseHTML($("#site-template").text())),
+
+	initialize: function(options) {
+
+		// TODO: Leaking subviews?
+		// Build the subviews. Each DOM node in the site template knows
+		// what selector it uses, throgh the `rel` attribute.
+		this.subViews = this.$el.find('[rel]').get()
+			.map(function (el) {
+
+				return new SiteElement({
+					el: el,
+					model: this.model.get('styles').get(el.attributes['rel'].value)
+				});
+
+			}.bind(this));
 	}
 });
