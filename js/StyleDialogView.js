@@ -98,6 +98,7 @@ var StyleDialogView = Backbone.View.extend({
 		$('body').addClass('modal-overlay');
 		$('#modal-overlay').append(this.$el);
 
+		this.subViews = [];
 		var $pickers = this.$el.find('.js-pickers');
 		var THIS = this;
 		function makePickerViewFromData (pickerData) {
@@ -110,6 +111,7 @@ var StyleDialogView = Backbone.View.extend({
 			});
 
 			var pickerView = new (pickerData.PickerView || PickerView)(pickerData);
+			THIS.subViews.push(pickerView);
 
 			// Update the style.
 			// TODO: The picker messages the style diealog to update the site style.
@@ -186,8 +188,18 @@ var StyleDialogView = Backbone.View.extend({
 	close: function () {
 
 		// Close the dialog.
-		// TODO: What about the child views? Are they still bound?
 		this.remove();
 		$('body').removeClass('modal-overlay');
+	},
+
+	// TODO: Move this to the Backbone.View base class.
+	remove: function () {
+
+		Backbone.View.prototype.remove.apply(this, arguments);
+
+		this.subViews
+			.forEach(function(view){
+				view.remove();
+			});
 	}
 });
