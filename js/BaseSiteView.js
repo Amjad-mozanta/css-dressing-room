@@ -24,7 +24,6 @@ var BaseSiteView = Backbone.View.extend({
 
 	initialize: function () {
 
-		// TODO: Leaking subviews?
 		// Build the subviews. Each DOM node in the site template knows
 		// what selector it uses, through the `rel` attribute.
 		this.subViews = this.$el.find('[rel]').get()
@@ -36,5 +35,15 @@ var BaseSiteView = Backbone.View.extend({
 				});
 
 			}.bind(this));
+	},
+
+	remove: function () {
+
+		Backbone.View.prototype.remove.apply(this, arguments);
+
+		this.subViews
+			.forEach(function(view){
+				view.remove();
+			});
 	}
 });
