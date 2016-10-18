@@ -18,10 +18,7 @@ var PickerView = Backbone.View.extend({
 		this.$ul = this.$('.js-items')
 
 		this.collection.on('add', this.add, this);
-		this.collection.each(function (model) {
-
-			this.add(model);
-		}.bind(this));
+		this.collection.each(this.add, this);
 	},
 
 
