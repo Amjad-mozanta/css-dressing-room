@@ -103,7 +103,7 @@ var StyleDialogView = Backbone.View.extend({
 
 			pickerData.collection = new Backbone.Collection(pickerData.items);
 
-			var selectedValue = this.model.get(pickerData.id);
+			var selectedValue = this.model.get(pickerData.styleProperty);
 			pickerData.model = new Backbone.Model({
 				selectedValue: selectedValue
 			});
@@ -115,7 +115,7 @@ var StyleDialogView = Backbone.View.extend({
 			// Make it instead use a model that is the style property. new CssProperty({name: 'color', value: 'black'})
 			pickerView.on('select', function (model) {
 
-				this.model.set(pickerData.id, model.get('value'));
+				this.model.set(pickerData.styleProperty, model.get('value'));
 			}.bind(this));
 
 			pickerView.$el.appendTo($pickers);
@@ -126,21 +126,21 @@ var StyleDialogView = Backbone.View.extend({
 
 		this.subViews = [
 			{
-				id: 'color',
+				styleProperty: 'color',
 				title: 'Color',
 				ItemView: ColorPickerItemView,
 				items: colors
 			},
 
 			{
-				id: 'font-size',
+				styleProperty: 'font-size',
 				title: 'Size',
 				ItemView: SizePickerItemView,
 				items: sizes
 			},
 
 			{
-				id: 'font-family',
+				styleProperty: 'font-family',
 				title: 'Font Family',
 				ItemView: FontFamilyPickerItemView,
 				items: fontFamilies
