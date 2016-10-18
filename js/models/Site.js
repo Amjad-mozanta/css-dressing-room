@@ -53,17 +53,7 @@ var Site = Backbone.Model.extend({
 
 	relations: {
 		styles: Styles,
-	},
-
-	initialize: function () {
-
-		// Bubble the change event.
-		this.get('styles').on('change', function () {
-
-			this.trigger('change', this);
-		}.bind(this))
 	}
-
 });
 
 
