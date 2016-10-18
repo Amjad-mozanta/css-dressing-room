@@ -1,13 +1,13 @@
 
 var BaseSiteElementView = Backbone.View.extend({
 
-	initialize: function(options) {
+	initialize: function () {
 
 		this.listenTo(this.model, 'change', this.applyModel, this);
 		this.applyModel();
 	},
 
-	applyModel: function(model) {
+	applyModel: function () {
 
 		var css = this.model.toJSON();
 		delete css.id;
@@ -22,7 +22,7 @@ var BaseSiteView = Backbone.View.extend({
 
 	$template: $($.parseHTML($("#site-template").text())),
 
-	initialize: function(options) {
+	initialize: function () {
 
 		// TODO: Leaking subviews?
 		// Build the subviews. Each DOM node in the site template knows
