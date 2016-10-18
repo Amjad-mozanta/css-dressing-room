@@ -16,7 +16,7 @@ var BasePickerItemView = Backbone.View.extend({
 	initialize: function (options) {
 
 		// this.pickerView = options.pickerView;
-		this.model.on('remove', this.remove, this);
+		this.listenTo(this.model, 'remove', this.remove, this);
 	},
 
 
