@@ -98,7 +98,6 @@ var StyleDialogView = Backbone.View.extend({
 		$('body').addClass('modal-overlay');
 		$('#modal-overlay').append(this.$el);
 
-		this.subViews = [];
 		var $pickers = this.$el.find('.js-pickers');
 		var makePickerViewFromData = function (pickerData) {
 
@@ -110,7 +109,6 @@ var StyleDialogView = Backbone.View.extend({
 			});
 
 			var pickerView = new (pickerData.PickerView || PickerView)(pickerData);
-			this.subViews.push(pickerView);
 
 			// Update the style.
 			// TODO: The picker messages the style diealog to update the site style.
@@ -126,8 +124,7 @@ var StyleDialogView = Backbone.View.extend({
 		}.bind(this);
 
 
-		var pickerViews = [
-
+		this.subViews = [
 			{
 				id: 'color',
 				title: 'Color',
@@ -158,13 +155,13 @@ var StyleDialogView = Backbone.View.extend({
 		// Set this up separately, since it has a dependency.
 		// It is a bit special, since it has to listen to the font family change,
 		// and list the sizes available for it.
-		pickerViews.fontWeight = makePickerViewFromData({
+		this.subViews.push(makePickerViewFromData({
 			id: 'font-weight',
 			title: 'Font Weight',
 			PickerView: FontWeightPickerView,
 			ItemView: FontWeightPickerItemView,
-			fontFamilyPickerView: pickerViews[2]
-		});
+			fontFamilyPickerView: this.subViews[2]
+		}));
 	},
 
 
