@@ -100,31 +100,30 @@ var StyleDialogView = Backbone.View.extend({
 
 		this.subViews = [];
 		var $pickers = this.$el.find('.js-pickers');
-		var THIS = this;
-		function makePickerViewFromData (pickerData) {
+		var makePickerViewFromData = function (pickerData) {
 
 			pickerData.collection = new Backbone.Collection(pickerData.items);
 
-			var selectedValue = THIS.model.get(pickerData.id);
+			var selectedValue = this.model.get(pickerData.id);
 			pickerData.model = new Backbone.Model({
 				selectedValue: selectedValue
 			});
 
 			var pickerView = new (pickerData.PickerView || PickerView)(pickerData);
-			THIS.subViews.push(pickerView);
+			this.subViews.push(pickerView);
 
 			// Update the style.
 			// TODO: The picker messages the style diealog to update the site style.
 			// Make it instead use a model that is the style property. new CssProperty({name: 'color', value: 'black'})
 			pickerView.on('select', function (model) {
 
-				THIS.model.set(pickerData.id, model.get('value'));
-			});
+				this.model.set(pickerData.id, model.get('value'));
+			}.bind(this));
 
 			pickerView.$el.appendTo($pickers);
 
 			return pickerView;
-		}
+		}.bind(this);
 
 
 		var pickerViews = [
