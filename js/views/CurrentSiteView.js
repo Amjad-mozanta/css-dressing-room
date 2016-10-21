@@ -8,8 +8,10 @@ var CurrentSiteElementView = BaseSiteElementView.extend({
 
 	onClick: function (e) {
 
-		// TODO: This feels out of place.
+		// Don't follow links.
 		e.preventDefault();
+
+		// Don't open multiple dialogs for nested elements.
 		e.stopPropagation();
 
 		new StyleDialogView({
