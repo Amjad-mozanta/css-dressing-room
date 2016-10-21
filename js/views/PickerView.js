@@ -11,6 +11,7 @@ var PickerView = Backbone.View.extend({
 
 	initialize: function (options) {
 
+		this.attributeName = options.attributeName;
 		this.$('.js-title').text(options.title);
 		// this.$el.addClass(options.class);
 
@@ -24,16 +25,14 @@ var PickerView = Backbone.View.extend({
 
 	add: function (model) {
 
-		// Bubble the selection event.
 		model.on('select', function () {
 
-			this.trigger('select', model);
-			this.model.set('value')
+			this.model.set(this.attributeName, model.id);
+
 		}.bind(this))
 
 		var view = new this.ItemView({
-			model: model,
-			// pickerView: this
+			model: model
 		});
 
 		view.$el.appendTo(this.$ul);

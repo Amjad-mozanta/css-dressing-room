@@ -103,20 +103,9 @@ var StyleDialogView = Backbone.View.extend({
 
 			pickerData.collection = new Backbone.Collection(pickerData.items);
 
-			var selectedValue = this.model.get(pickerData.styleProperty);
-			pickerData.model = new Backbone.Model({
-				selectedValue: selectedValue
-			});
+			pickerData.model = this.model;
 
 			var pickerView = new (pickerData.PickerView || PickerView)(pickerData);
-
-			// Update the style.
-			// TODO: The picker messages the style diealog to update the site style.
-			// Make it instead use a model that is the style property. new CssProperty({name: 'color', value: 'black'})
-			pickerView.on('select', function (model) {
-
-				this.model.set(pickerData.styleProperty, model.get('value'));
-			}.bind(this));
 
 			pickerView.$el.appendTo($pickers);
 
@@ -126,21 +115,21 @@ var StyleDialogView = Backbone.View.extend({
 
 		this.subViews = [
 			{
-				styleProperty: 'color',
+				attributeName: 'color',
 				title: 'Color',
 				ItemView: ColorPickerItemView,
 				items: colors
 			},
 
 			{
-				styleProperty: 'font-size',
+				attributeName: 'font-size',
 				title: 'Size',
 				ItemView: SizePickerItemView,
 				items: sizes
 			},
 
 			{
-				styleProperty: 'font-family',
+				attributeName: 'font-family',
 				title: 'Font Family',
 				ItemView: FontFamilyPickerItemView,
 				items: fontFamilies
@@ -156,7 +145,7 @@ var StyleDialogView = Backbone.View.extend({
 		// It is a bit special, since it has to listen to the font family change,
 		// and list the sizes available for it.
 		this.subViews.push(makePickerViewFromData({
-			id: 'font-weight',
+			attributeName: 'font-weight',
 			title: 'Font Weight',
 			PickerView: FontWeightPickerView,
 			ItemView: FontWeightPickerItemView,
