@@ -31,8 +31,10 @@ var PickerView = Backbone.View.extend({
 
 		}.bind(this))
 
+		// TODO: Leaking views.
 		var view = new this.ItemView({
-			model: model
+			model: model,
+			initallySelectedValue: this.model.get(this.attributeName)
 		});
 
 		view.$el.appendTo(this.$ul);

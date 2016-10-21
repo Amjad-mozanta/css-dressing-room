@@ -15,6 +15,11 @@ var BasePickerItemView = Backbone.View.extend({
 
 	initialize: function (options) {
 
+		if (this.model.id == options.initallySelectedValue) {
+
+			this.$el.find('input').attr({checked: true});
+		}
+
 		// this.pickerView = options.pickerView;
 		this.listenTo(this.model, 'remove', this.remove, this);
 	},
