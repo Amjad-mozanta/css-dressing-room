@@ -8,9 +8,6 @@ var CurrentSiteElementView = BaseSiteElementView.extend({
 
 	onClick: function (e) {
 
-		// Don't follow links.
-		e.preventDefault();
-
 		// Don't open multiple dialogs for nested elements.
 		e.stopPropagation();
 
