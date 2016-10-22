@@ -113,6 +113,8 @@ var StyleDialogView = Backbone.View.extend({
 		}.bind(this);
 
 
+		// TODO: Only show the relevant pickers.
+		// TODO: Support background color as well.
 		this.subViews = [
 			{
 				attributeName: 'color',
