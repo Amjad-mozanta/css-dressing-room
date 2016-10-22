@@ -11,6 +11,8 @@ var PickerView = Backbone.View.extend({
 
 	initialize: function (options) {
 
+		this.subviews = [];
+
 		this.attributeName = options.attributeName;
 		this.$('.js-title').text(options.title);
 		// this.$el.addClass(options.class);
@@ -31,13 +33,14 @@ var PickerView = Backbone.View.extend({
 
 		}.bind(this))
 
-		// TODO: Leaking views.
 		var view = new this.ItemView({
 			model: model,
 			initallySelectedValue: this.model.get(this.attributeName)
 		});
 
 		view.$el.appendTo(this.$ul);
+
+		this.subviews.push(view);
 	}
 
 });
