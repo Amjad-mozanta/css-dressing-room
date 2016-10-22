@@ -115,7 +115,7 @@ var StyleDialogView = Backbone.View.extend({
 
 		// TODO: Only show the relevant pickers.
 		// TODO: Support background color as well.
-		this.subViews = [
+		this.subviews = [
 			{
 				attributeName: 'color',
 				title: 'Color',
@@ -146,12 +146,12 @@ var StyleDialogView = Backbone.View.extend({
 		// Set this up separately, since it has a dependency.
 		// It is a bit special, since it has to listen to the font family change,
 		// and list the sizes available for it.
-		this.subViews.push(makePickerViewFromData({
+		this.subviews.push(makePickerViewFromData({
 			attributeName: 'font-weight',
 			title: 'Font Weight',
 			PickerView: FontWeightPickerView,
 			ItemView: FontWeightPickerItemView,
-			fontFamilyPickerView: this.subViews[2]
+			fontFamilyPickerView: this.subviews[2]
 		}));
 	},
 
@@ -177,16 +177,5 @@ var StyleDialogView = Backbone.View.extend({
 		// Close the dialog.
 		this.remove();
 		$('body').removeClass('modal-overlay');
-	},
-
-	// TODO: Move this to the Backbone.View base class.
-	remove: function () {
-
-		Backbone.View.prototype.remove.apply(this, arguments);
-
-		this.subViews
-			.forEach(function(view){
-				view.remove();
-			});
 	}
 });
